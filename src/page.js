@@ -2,7 +2,7 @@
 // Roda antes do site para capturar shadow roots, inclusive fechados.
 (() => {
   // Ao atualizar a extensão, a versão nova substitui a antiga na aba aberta.
-  const VERSION = "2.2.0";
+  const VERSION = "2.2.1";
   const prev = window.__zoomorph;
   if (prev && prev.v === VERSION) return;
   prev?.stop?.();
@@ -166,10 +166,29 @@
     return { sx, sy, x, y, s: g.s, c: g.c, ignored: g.ignored };
   }
 
+  // O zoom vaza da caixa do vídeo; algum contêiner precisa cortar o excesso.
+  // Usa o ancestral mais próximo que cobre o vídeo. Não pode ser o pai direto
+  // às cegas: no YouTube ele mede 0×0 e cortaria o vídeo inteiro.
+  let clipped = null;
+  function clipTo(v) {
+    const b = v.getBoundingClientRect();
+    const sx = applied.sx || 1, sy = applied.sy || 1;
+    const need = { w: (b.width / sx) * 0.9, h: (b.height / sy) * 0.9 };
+    for (let el = v.parentElement; el && el !== document.body; el = el.parentElement || el.getRootNode().host) {
+      if (el.clientWidth < need.w || el.clientHeight < need.h) continue;
+      if (getComputedStyle(el).overflow !== "visible") return;
+      if (clipped && clipped !== el) clipped.style.removeProperty("overflow");
+      el.style.setProperty("overflow", "hidden", "important");
+      clipped = el;
+      return;
+    }
+  }
+
   function clear(v) {
     v.style.removeProperty("transform");
     v.style.removeProperty("transform-origin");
     delete v.dataset.zoomorph;
+    if (clipped) { clipped.style.removeProperty("overflow"); clipped = null; }
   }
 
   function apply() {
@@ -189,8 +208,7 @@
       }
       v.dataset.zoomorph = "1";
       applied = { sx: r.sx, sy: r.sy };
-      const p = v.parentElement;
-      if (p && getComputedStyle(p).overflow === "visible") p.style.setProperty("overflow", "hidden", "important");
+      clipTo(v);
     } else if (v.dataset.zoomorph) { clear(v); applied = { sx: 1, sy: 1 }; }
     report(v, r);
   }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.1 — 2026-10-14
+
+- Corrige o vídeo sumindo no YouTube ao aplicar qualquer ajuste. A extensão cortava o excesso do zoom no elemento em volta do vídeo, que no YouTube mede 0×0. Agora ela usa o contêiner mais próximo que realmente cobre o vídeo, e só se ele ainda não corta o excesso.
+
 ## 2.2.0 — 2026-10-14
 
 Primeira versão pública.
