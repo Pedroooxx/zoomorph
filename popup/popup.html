@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Zoomorph</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <img src="../icons/icon32.png" width="22" height="22" alt="">
+    <b class="word">ZOOM<span>ORPH</span></b>
+    <label class="switch" title="Ativar neste site">
+      <input type="checkbox" id="enabled"><span></span>
+    </label>
+  </header>
+  <div class="site"><span id="site">—</span><span id="title" class="dim"></span></div>
+
+  <div id="novideo" class="empty" hidden>
+    <p id="nvTitle">Procurando vídeo…</p>
+    <p class="dim" id="nvText">Dê play no vídeo. Este painel atualiza sozinho quando encontrar.</p>
+    <div class="acts">
+      <button class="ghost" id="retry">Procurar de novo</button>
+      <button class="ghost" id="reload">Recarregar página</button>
+    </div>
+  </div>
+
+  <main id="ui" hidden>
+    <div class="stage" id="stage"><div class="frame" id="frame"></div><span class="tag" id="tag"></span></div>
+
+    <div class="block">
+      <div class="lbl"><span>tela</span><span id="scrInfo" class="dim"></span></div>
+      <div class="seg" id="screens"></div>
+    </div>
+
+    <div class="block" id="filmBox">
+      <div class="lbl"><span>filme</span><span><span id="src" class="src"></span> <a href="#" id="carAuto" hidden>voltar ao auto</a></span></div>
+      <div class="exact">
+        <span class="dim">formato</span>
+        <input type="range" id="carR" min="1.33" max="2.76" step="0.01" aria-label="Formato do filme">
+        <span class="val" id="carV"></span>
+      </div>
+      <div class="lbl" style="margin-top:4px"><span class="dim">só use se o filme tiver tarja gravada no arquivo</span><a href="#" id="detect">detectar tarja</a></div>
+    </div>
+
+    <div class="block">
+      <div class="lbl"><span>automático</span><span class="dim">acompanha a tela e a tela cheia</span></div>
+      <div class="seg" id="modes"></div>
+    </div>
+
+    <div class="block manual" id="manualBox">
+      <div class="lbl"><span>manual</span><span class="dim" id="manualHint">arraste para fixar um zoom</span></div>
+      <div class="fine">
+        <button class="step" id="minus" aria-label="Menos zoom">−</button>
+        <input type="range" id="zoomR" min="100" max="300" step="1" aria-label="Zoom manual">
+        <button class="step" id="plus" aria-label="Mais zoom">+</button>
+        <span class="val" id="zoomV"></span>
+      </div>
+    </div>
+
+    <div class="pan">
+      <span class="dim">posição</span>
+      <button data-p="left" aria-label="Esquerda">◀</button>
+      <button data-p="up" aria-label="Subir">▲</button>
+      <button data-p="center" aria-label="Centralizar">●</button>
+      <button data-p="down" aria-label="Descer">▼</button>
+      <button data-p="right" aria-label="Direita">▶</button>
+    </div>
+
+    <div class="acts">
+      <button class="ghost" id="siteDefault">Usar como padrão do site</button>
+      <button class="ghost" id="forget" hidden>Esquecer este título</button>
+    </div>
+
+    <div class="block">
+      <div class="lbl"><span>presets</span><a href="#" id="savePreset">salvar atual</a></div>
+      <form id="presetForm" hidden><input id="presetName" placeholder="Nome do preset" maxlength="30"><button>Salvar</button></form>
+      <div id="presets" class="presets"></div>
+    </div>
+  </main>
+
+  <aside id="rate" class="rate" hidden>
+    <span>Está gostando do Zoomorph?</span>
+    <a href="#" id="rateLink">Avaliar na loja</a>
+    <button id="rateLater" aria-label="Agora não">×</button>
+  </aside>
+
+  <footer>
+    <span><kbd>Alt</kbd>+<kbd>Z</kbd> alternar · <kbd>Alt</kbd>+roda zoom</span>
+    <a href="#" id="shortcuts">atalhos</a>
+  </footer>
+  <script src="../src/shared.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

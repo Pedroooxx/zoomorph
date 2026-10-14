@@ -1,0 +1,326 @@
+<title>Zoomorph</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Krona+One&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: coluna larga 2.39:1 na abertura; depois blocos de decisão — nome, símbolo, matriz de cenários, popup, adaptadores */
+:root{
+  --night:#140826;     /* fundo roxo-noite */
+  --deck:#21103d;      /* superfícies */
+  --edge:#3a2366;      /* linhas */
+  --text:#f3edff;      /* texto */
+  --dim:#a596c7;       /* secundário */
+  --violet:#8a3ffc;    /* roxo vibrante: marca, seleção */
+  --sun:#ffd23f;       /* amarelo: ação, valor */
+  --wide:"Krona One",system-ui,sans-serif;
+  --body:"Instrument Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--night);color:var(--text);font:15px/1.6 var(--body);margin:0}
+.wrap{max-width:1060px;margin:0 auto;padding-inline:20px;padding-block:0 96px}
+h1,h2,h3{margin:0;font-weight:400;text-wrap:balance}
+h2{font:400 1.25rem/1.3 var(--wide);letter-spacing:.02em}
+h3{font:600 1rem var(--body)}
+p{margin:0;max-width:62ch}
+.dim{color:var(--dim)}
+code,kbd{font-family:var(--mono);font-size:.86em}
+kbd{border:1px solid var(--edge);border-bottom-width:2px;border-radius:4px;padding:0 6px;background:var(--deck)}
+section{display:grid;gap:24px;padding-block:56px;border-top:1px solid var(--edge)}
+button{font:inherit;color:inherit}
+
+/* abertura */
+.open{position:relative;aspect-ratio:2.39;max-width:100%;margin-block:28px 8px;background:radial-gradient(ellipse 55% 45% at 50% 50%,#4b1d9a,var(--night) 75%);overflow:hidden;border-radius:4px;display:grid;place-items:center}
+.open::before,.open::after{content:"";position:absolute;left:0;right:0;height:22%;background:#07020f;animation:bars 1.6s .3s cubic-bezier(.7,0,.2,1) both}
+.open::before{top:0}.open::after{bottom:0}
+@keyframes bars{from{height:22%}to{height:0}}
+.word{position:relative;display:grid;justify-items:center;gap:14px}
+.word h1{font:400 clamp(1.8rem,7vw,4.6rem) var(--wide);letter-spacing:.05em}
+.word h1 span{color:var(--sun)}
+.word p{font:500 12px var(--mono);letter-spacing:.2em;color:var(--dim);text-transform:uppercase;text-align:center}
+@media (prefers-reduced-motion:reduce){.open::before,.open::after{animation:none;height:0}}
+
+.lead{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;padding-block:32px 56px}
+.lead p{font-size:1.05rem}
+@media (max-width:760px){.lead{grid-template-columns:1fr}}
+
+/* nomes */
+.names{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--edge);border:1px solid var(--edge)}
+.names div{background:var(--night);padding:18px;display:grid;gap:6px;align-content:start}
+.names b{font:400 1.05rem var(--wide);letter-spacing:.03em}
+.names .eq{font:12px var(--mono);color:var(--violet)}
+.names .pick{background:var(--deck)}
+.names .pick b{color:var(--sun)}
+
+/* símbolo */
+.build{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:end}
+.build figure{margin:0;display:grid;gap:10px;justify-items:center;text-align:center}
+.build figcaption{font:12px var(--mono);color:var(--dim)}
+@media (max-width:700px){.build{grid-template-columns:repeat(2,1fr)}}
+.sizes{display:flex;gap:28px;align-items:end;flex-wrap:wrap}
+.sizes span{font:11px var(--mono);color:var(--dim);display:block;margin-top:6px;text-align:center}
+.lockup{display:flex;align-items:center;gap:14px}
+.lockup b{font:400 1.5rem var(--wide);letter-spacing:.05em}
+.lockup b span{color:var(--sun)}
+.pal{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}
+.pal div{display:grid;gap:6px}
+.pal i{display:block;height:46px;border-radius:3px;border:1px solid var(--edge)}
+.pal small{font:11px var(--mono);color:var(--dim)}
+
+/* matriz */
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.mode{display:grid;gap:8px;align-content:start}
+.mini{position:relative;aspect-ratio:1.778;background:#07020f;overflow:hidden;border-radius:3px;outline:1.5px dashed var(--violet);outline-offset:-1.5px}
+.mini i{position:absolute;inset:0;margin:auto;aspect-ratio:2.39;max-width:100%;max-height:100%;background:linear-gradient(160deg,#6b2bd9,#c4407a 60%,#ffd23f)}
+.mini i::after{content:"";position:absolute;left:42%;top:30%;width:10%;aspect-ratio:1;border-radius:50%;background:#fff6;}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 12px 9px 0;border-bottom:1px solid var(--edge);text-align:left;vertical-align:top}
+th{font:500 11px var(--mono);color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+.mx td{font:500 13px var(--mono);font-variant-numeric:tabular-nums}
+.mx td.z0{color:var(--dim)}
+.mx td.hi{color:var(--sun)}
+.mx td:first-child{color:var(--text);font-family:var(--body)}
+
+/* protótipo */
+.proto{display:grid;grid-template-columns:340px 1fr;gap:40px;align-items:start}
+@media (max-width:840px){.proto{grid-template-columns:1fr}}
+.pop{width:100%;max-width:340px;background:var(--deck);border:1px solid var(--edge);border-radius:10px;overflow:hidden}
+.pop-h{display:flex;align-items:center;gap:10px;padding:12px 14px}
+.pop-h b{font:400 13px var(--wide);letter-spacing:.05em}
+.pop-h b span{color:var(--sun)}
+.site{margin-left:auto;font:11px var(--mono);color:var(--dim);display:flex;gap:6px;align-items:center}
+.site i{width:7px;height:7px;border-radius:50%;background:var(--sun)}
+.stage{position:relative;aspect-ratio:var(--sar,1.778);background:#07020f;overflow:hidden}
+.frame{position:absolute;inset:0;margin:auto;aspect-ratio:var(--car,2.39);max-width:100%;max-height:100%;background:linear-gradient(160deg,#6b2bd9,#c4407a 60%,#ffd23f);transition:transform .25s}
+.frame::after{content:"";position:absolute;left:44%;top:28%;width:10%;aspect-ratio:1;border-radius:50%;background:#fff6}
+.stage-tag{position:absolute;left:8px;bottom:6px;font:11px var(--mono);background:#07020fcc;padding:1px 6px;border-radius:3px}
+.pop-b{padding:14px;display:grid;gap:14px}
+.lbl{display:flex;justify-content:space-between;gap:8px;font:500 11px var(--mono);color:var(--dim);margin-bottom:6px}
+.lbl a{color:var(--sun);cursor:pointer}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;border:1px solid var(--edge);border-radius:6px;overflow:hidden}
+.seg button{all:unset;cursor:pointer;text-align:center;padding:7px 0;font:500 12px var(--mono);color:var(--dim);border-left:1px solid var(--edge)}
+.seg button:first-child{border-left:0}
+.seg button[aria-pressed="true"]{background:var(--violet);color:#fff}
+.seg button:focus-visible,.go:focus-visible,.ghost:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
+.auto{font:11px var(--mono);color:var(--sun)}
+.acts{display:grid;grid-template-columns:1fr auto;gap:8px}
+.go{all:unset;cursor:pointer;text-align:center;background:var(--sun);color:#1a0d00;font:600 14px var(--body);padding:10px;border-radius:6px}
+.ghost{all:unset;cursor:pointer;padding:10px 14px;border:1px solid var(--edge);border-radius:6px;font:500 13px var(--body)}
+.row{display:grid;grid-template-columns:auto 1fr 52px;gap:10px;align-items:center;font:11px var(--mono);color:var(--dim)}
+input[type=range]{width:100%;accent-color:var(--sun)}
+.val{font:500 13px var(--mono);text-align:right;color:var(--text);font-variant-numeric:tabular-nums}
+select{background:var(--night);color:var(--text);border:1px solid var(--edge);border-radius:4px;font:11px var(--mono);padding:2px 4px}
+.pre{display:grid}
+.pre button{all:unset;cursor:pointer;display:grid;grid-template-columns:1fr auto;padding:8px 0;border-top:1px solid var(--edge);font-size:13px}
+.pre small{font:11px var(--mono);color:var(--dim)}
+.pre button:hover b{color:var(--sun)}
+.pre b{font-weight:500}
+.pop-f{display:flex;justify-content:space-between;padding:10px 14px;border-top:1px solid var(--edge);font:11px var(--mono);color:var(--dim)}
+.why{display:grid;gap:22px}
+.why h3{margin-bottom:4px}
+
+.layers{display:grid;gap:1px;background:var(--edge);border:1px solid var(--edge)}
+.layers div{background:var(--night);display:grid;grid-template-columns:150px 1fr;gap:16px;padding:14px 16px}
+.layers b{font:500 12px var(--mono);color:var(--sun)}
+@media (max-width:600px){.layers div{grid-template-columns:1fr;gap:4px}}
+.tag{display:inline-block;font:500 11px var(--mono);border:1px solid var(--edge);border-radius:3px;padding:0 6px;margin:2px 4px 2px 0}
+.tag.ok{border-color:var(--violet);color:var(--text)}
+
+.tv{position:relative;aspect-ratio:2.39;max-width:100%;background:linear-gradient(160deg,#6b2bd9,#c4407a 60%,#ffd23f);border-radius:4px;overflow:hidden}
+.hud{position:absolute;top:16px;right:16px;display:flex;gap:12px;align-items:center;background:#0b0418d0;backdrop-filter:blur(6px);border-radius:4px;padding:7px 12px;font:500 12px var(--mono);white-space:nowrap}
+.hud em{font-style:normal;color:var(--sun)}
+</style>
+
+<div class="wrap">
+  <div class="open">
+    <div class="word">
+      <svg width="96" height="96" viewBox="0 0 100 100" aria-label="Símbolo Zoomorph"><use href="#mark"/></svg>
+      <h1>ZOOM<span>ORPH</span></h1>
+      <p>qualquer filme · qualquer tela · qualquer streaming</p>
+    </div>
+  </div>
+
+  <div class="lead">
+    <p>Cada streaming entrega o vídeo de um jeito. Cada filme tem um formato e cada pessoa assiste numa tela diferente: notebook 16:10, monitor 16:9, ultrawide 21:9 ou 32:9, TV espelhada. A extensão cruza esses três dados e decide o enquadramento. Você só corrige quando quiser.</p>
+    <p class="dim">O nome junta a função com a referência. <b style="color:var(--text)">Zoom</b> é o que a extensão faz. <b style="color:var(--text)">Morph</b> vem de anamórfico, a técnica de cinema de espremer e esticar imagem, e também quer dizer mudar de forma, que é o que o enquadramento faz para caber em cada tela.</p>
+  </div>
+
+  <section>
+    <h2>Nome</h2>
+    <div class="names">
+      <div class="pick"><span class="eq">zoom + anamorph</span><b>Zoomorph</b><p class="dim">Recomendado. Diz a função logo no começo e guarda a referência de cinema. É fácil de falar e buscar, e funciona em português e em inglês.</p></div>
+      <div><span class="eq">fit + cinemascope</span><b>Fitscope</b><p class="dim">"Fit" é exatamente a função de ajustar. Mas "scope" lembra só o formato 2.39, e a extensão atende todos.</p></div>
+      <div><span class="eq">frame + fill</span><b>Framefill</b><p class="dim">É claro e descritivo, mas não tem personalidade: parece nome de ferramenta, não de marca.</p></div>
+      <div><span class="eq">tarja + zero</span><b>Tarja Zero</b><p class="dim">Em português e com uma promessa forte. Por outro lado, fala só do problema da faixa preta e deixa de fora o ajuste fino e o modo de ajustar sem cortar.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Símbolo</h2>
+    <p class="dim">O símbolo é um Z montado com os três elementos do problema. As duas barras horizontais são as tarjas pretas, em cima e embaixo. O traço diagonal é a diagonal da tela, a mesma medida das polegadas do monitor. Tudo dentro de um quadrado de cantos arredondados, o formato padrão de ícone: nenhuma forma é distorcida, e o Z de Zoom só aparece quando as peças se juntam.</p>
+    <div class="build">
+      <figure><svg width="100%" viewBox="0 0 100 100" style="max-width:120px"><rect x="4" y="4" width="92" height="92" rx="22" fill="none" stroke="#a596c7" stroke-width="2.5"/></svg><figcaption>tela</figcaption></figure>
+      <figure><svg width="100%" viewBox="0 0 100 100" style="max-width:120px"><rect x="4" y="4" width="92" height="92" rx="22" fill="none" stroke="#a596c7" stroke-width="2.5"/><rect x="10" y="12" width="80" height="12" fill="#a596c7"/><rect x="10" y="76" width="80" height="12" fill="#a596c7"/></svg><figcaption>+ tarjas</figcaption></figure>
+      <figure><svg width="100%" viewBox="0 0 100 100" style="max-width:120px"><rect x="4" y="4" width="92" height="92" rx="22" fill="none" stroke="#a596c7" stroke-width="2.5"/><path d="M88 12L12 88" stroke="#a596c7" stroke-width="2.5" stroke-dasharray="4 4"/></svg><figcaption>+ diagonal</figcaption></figure>
+      <figure><svg width="100%" viewBox="0 0 100 100" style="max-width:120px"><use href="#mark"/></svg><figcaption>= Z</figcaption></figure>
+    </div>
+    <div class="sizes">
+      <div><svg width="128" height="128" viewBox="0 0 100 100"><use href="#app"/></svg><span>loja · 128</span></div>
+      <div><svg width="48" height="48" viewBox="0 0 100 100"><use href="#app"/></svg><span>48</span></div>
+      <div><svg width="32" height="32" viewBox="0 0 100 100"><use href="#app"/></svg><span>barra · 32</span></div>
+      <div><svg width="16" height="16" viewBox="0 0 100 100"><use href="#app"/></svg><span>16</span></div>
+      <div class="lockup"><svg width="48" height="48" viewBox="0 0 100 100"><use href="#mark"/></svg><b>ZOOM<span>ORPH</span></b></div>
+    </div>
+    <div class="pal">
+      <div><i style="background:#140826"></i><small>noite · fundo</small></div>
+      <div><i style="background:#21103d"></i><small>deck</small></div>
+      <div><i style="background:#8a3ffc"></i><small>roxo · marca</small></div>
+      <div><i style="background:#ffd23f"></i><small>amarelo · ação</small></div>
+      <div><i style="background:#f3edff"></i><small>texto</small></div>
+    </div>
+    <p class="dim">O roxo é a imagem, ou seja, o que a extensão protege. O amarelo é o Z e aparece também no botão principal e nos valores calculados, sempre marcando ação.</p>
+  </section>
+
+  <section>
+    <h2>Quatro modos, não um zoom</h2>
+    <p class="dim">Zoom é só um dos jeitos de resolver a diferença de formato. Cada modo serve para um caso diferente, e todos funcionam com qualquer combinação de tela e filme.</p>
+    <div class="modes">
+      <div class="mode"><div class="mini"><i></i></div><h3>Original</h3><p class="dim">Como o streaming entrega, com tarjas.</p></div>
+      <div class="mode"><div class="mini"><i style="transform:scale(1.34)"></i></div><h3>Preencher</h3><p class="dim">Zoom uniforme até sumir a tarja. Corta as laterais e não distorce.</p></div>
+      <div class="mode"><div class="mini"><i style="transform:scale(1.16)"></i></div><h3>Meio-termo</h3><p class="dim">Zoom parcial: reduz a tarja pela metade e corta metade das laterais.</p></div>
+      <div class="mode"><div class="mini"><i style="transform:scaleY(1.34)"></i></div><h3>Esticar</h3><p class="dim">Estica só na vertical, sem cortar nada. Distorce, mas há quem prefira em telas pequenas.</p></div>
+    </div>
+    <div class="tbl"><table class="mx" id="mx"></table></div>
+    <p class="dim">Zoom de <b style="color:var(--sun)">Preencher</b> para cada combinação de tela (colunas) e formato do filme (linhas). A conta é <code>max(tela ÷ filme, filme ÷ tela)</code>. Quando dá 100%, os formatos já coincidem e não há nada a fazer.</p>
+  </section>
+
+  <section>
+    <h2>Popup</h2>
+    <div class="proto">
+      <div class="pop">
+        <div class="pop-h"><svg width="22" height="22" viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg><b>ZOOM<span>ORPH</span></b>
+          <span class="site"><i></i><select id="svc" aria-label="Streaming">
+            <option>disneyplus.com</option><option>netflix.com</option><option>primevideo.com</option><option>max.com</option><option>youtube.com</option><option>globoplay.com</option><option>crunchyroll.com</option>
+          </select></span></div>
+        <div class="stage" id="stage"><div class="frame" id="frame"></div><span class="stage-tag" id="tag"></span></div>
+        <div class="pop-b">
+          <div>
+            <div class="lbl"><span>tela</span><span id="scr"></span></div>
+            <div class="seg" id="scrs"></div>
+          </div>
+          <div>
+            <div class="lbl"><span>filme</span><span class="auto" id="det"></span></div>
+            <div class="seg" id="cars"></div>
+          </div>
+          <div>
+            <div class="lbl"><span>modo</span></div>
+            <div class="seg" id="modes"></div>
+          </div>
+          <div class="row"><span>fino</span><input id="zoom" type="range" min="100" max="220" aria-label="Zoom"><span class="val" id="zv"></span></div>
+          <div class="acts"><button class="go" id="apply">Aplicar neste título</button><button class="ghost" id="site">Padrão do site</button></div>
+          <div>
+            <div class="lbl"><span>presets</span><a id="save">salvar atual</a></div>
+            <div class="pre" id="pre"></div>
+          </div>
+        </div>
+        <div class="pop-f"><span><kbd>Alt</kbd> <kbd>Z</kbd> alternar</span><span id="saved">lembrado por título</span></div>
+      </div>
+      <div class="why">
+        <div><h3>A tela sugere, você confirma</h3><p class="dim">"Auto" usa a resolução do monitor onde a janela está, já considerando a escala do Windows. Os outros botões servem para quando a imagem vai para outro lugar: TV espelhada, projetor, ultrawide no segundo monitor.</p></div>
+        <div><h3>O formato do filme tem três fontes</h3><p class="dim">Primeiro o que você já salvou para aquele título. Depois a proporção real do vídeo, quando o arquivo vem sem tarja gravada, como no YouTube e em parte da Netflix. Por último, o padrão do site. A origem do valor aparece em amarelo ao lado do rótulo.</p></div>
+        <div><h3>Lembrar no nível certo</h3><p class="dim">"Aplicar neste título" vale só para aquele filme ou série. "Padrão do site" vale para todo o resto do streaming. Os presets ficam disponíveis em qualquer site.</p></div>
+        <div><h3>Funciona em telas verticais e 32:9</h3><p class="dim">A conta não presume 16:9 em lugar nenhum. Um monitor girado em 9:16 ou um super-ultrawide 32:9 entram como qualquer outra tela.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Adaptável a cada streaming</h2>
+    <p class="dim">O núcleo é o mesmo para todos os sites. O que muda de um streaming para outro fica num adaptador pequeno. Um site sem adaptador ainda funciona pelo modo genérico.</p>
+    <div class="layers">
+      <div><b>núcleo</b><p class="dim">Encontra o vídeo principal (o maior que estiver tocando, inclusive dentro de shadow DOM e iframes), aplica o modo por CSS com <code>!important</code> e reaplica quando o player recria o vídeo.</p></div>
+      <div><b>adaptador</b><p class="dim">Por site: o seletor do vídeo e do contêiner, como o site identifica cada título na URL, o que indica anúncio e onde colocar o aviso na tela cheia. Na Disney+ já sabemos: <code>video#hivePlayer1</code> dentro de <code>.btm-media-client</code>, e o título vem de <code>/play/&lt;id&gt;</code>.</p></div>
+      <div><b>memória</b><p class="dim">É uma hierarquia: título, depois site, depois o padrão global. O nível mais específico vence.</p></div>
+      <div><b>tela</b><p class="dim">É detectada sempre que o player entra ou sai de tela cheia ou a janela muda de monitor. Também pode ser fixada manualmente.</p></div>
+    </div>
+    <div>
+      <span class="tag ok">Disney+ · mapeado</span><span class="tag ok">Prime Video · testado</span><span class="tag">Netflix</span><span class="tag">Max</span><span class="tag">YouTube</span><span class="tag">Globoplay</span><span class="tag">Crunchyroll</span><span class="tag">Apple TV+</span><span class="tag">Paramount+</span><span class="tag">genérico · qualquer &lt;video&gt;</span>
+    </div>
+    <p class="dim">A tarja não é detectada pela imagem: os streamings com proteção (DRM) não deixam a extensão ler os pixels. Por isso a extensão se apoia em memória e escolha rápida, não em adivinhação.</p>
+  </section>
+
+  <section>
+    <h2>No player</h2>
+    <div class="tv"><div class="hud"><svg width="18" height="18" viewBox="0 0 100 100"><use href="#mark"/></svg><span>2.39 → 16:9 · preencher</span><em>134%</em></div></div>
+    <div class="tbl"><table>
+      <tr><td><kbd>Alt</kbd> <kbd>Z</kbd></td><td>Alterna entre o modo salvo e o original.</td></tr>
+      <tr><td><kbd>Alt</kbd> <kbd>X</kbd></td><td>Passa pelos formatos de filme até a tarja sumir.</td></tr>
+      <tr><td><kbd>Alt</kbd> <kbd>M</kbd></td><td>Troca o modo: preencher, meio-termo ou esticar.</td></tr>
+      <tr><td><kbd>Alt</kbd> <kbd>↑</kbd> <kbd>↓</kbd></td><td>Ajuste fino de 2 em 2%.</td></tr>
+      <tr><td><kbd>Alt</kbd> <kbd>Shift</kbd> setas</td><td>Move a imagem.</td></tr>
+    </table></div>
+  </section>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="scr"><rect x="4" y="4" width="92" height="92" rx="22"/></clipPath>
+    <symbol id="mark" viewBox="0 0 100 100">
+      <g clip-path="url(#scr)">
+        <rect x="4" y="4" width="92" height="92" fill="#8a3ffc"/>
+        <rect x="4" y="4" width="92" height="20" fill="#ffd23f"/>
+        <rect x="4" y="76" width="92" height="20" fill="#ffd23f"/>
+        <polygon points="68,24 96,24 32,76 4,76" fill="#ffd23f"/>
+      </g>
+    </symbol>
+    <symbol id="app" viewBox="0 0 100 100">
+      <use href="#mark"/>
+    </symbol>
+  </defs>
+</svg>
+
+<script>
+const $=id=>document.getElementById(id);
+const dpr=window.devicePixelRatio||1;
+const autoScr=[Math.round(screen.width*dpr),Math.round(screen.height*dpr)];
+const SCR=[["auto",autoScr[0]/autoScr[1]],["16:10",1.6],["16:9",16/9],["21:9",2.37],["32:9",32/9]];
+const CAR=[["2.39",2.39],["2.00",2],["1.85",1.85],["16:9",16/9],["4:3",4/3]];
+const MODES=["original","preencher","meio","esticar"];
+const svcDefault={"disneyplus.com":"2.39","netflix.com":"2.00","primevideo.com":"2.39","max.com":"2.39","youtube.com":"16:9","globoplay.com":"16:9","crunchyroll.com":"16:9"};
+let st={scr:0,car:"2.39",mode:"preencher",fine:0,src:"salvo p/ título"};
+const fit=(s,c)=>Math.max(s/c,c/s);
+
+// matriz
+(()=>{const cols=[["16:10",1.6],["16:9",16/9],["21:9",2.37],["32:9",32/9],["9:16",9/16]];
+let h="<tr><th>filme \\ tela</th>"+cols.map(c=>`<th>${c[0]}</th>`).join("")+"</tr>";
+for(const [n,c] of CAR){h+=`<tr><td>${n}</td>`+cols.map(([,s])=>{const z=Math.round(fit(s,c)*100);return `<td class="${z<=101?'z0':z>=130?'hi':''}">${z}%</td>`}).join("")+"</tr>"}
+$("mx").innerHTML=h})();
+
+function seg(el,items,cur,on){$(el).innerHTML="";items.forEach(k=>{const b=document.createElement("button");b.textContent=k;b.setAttribute("aria-pressed",k===cur);b.onclick=()=>on(k);$(el).appendChild(b)})}
+function zoomFor(){const s=SCR[st.scr][1],c=CAR.find(x=>x[0]===st.car)[1],f=fit(s,c);
+  if(st.mode==="original")return{sx:1,sy:1,z:1};
+  if(st.mode==="preencher")return{sx:f,sy:f,z:f};
+  if(st.mode==="meio"){const m=1+(f-1)/2;return{sx:m,sy:m,z:m}}
+  return c>s?{sx:1,sy:f,z:f}:{sx:f,sy:1,z:f}}
+function render(){
+  const s=SCR[st.scr][1],c=CAR.find(x=>x[0]===st.car)[1];
+  let {sx,sy,z}=zoomFor();const k=1+st.fine/100;sx*=k;sy*=k;z*=k;
+  $("stage").style.setProperty("--sar",s);$("frame").style.setProperty("--car",c);
+  $("frame").style.transform=`scale(${sx},${sy})`;
+  $("zoom").value=Math.round(z*100);$("zv").textContent=Math.round(z*100)+"%";
+  $("scr").textContent=st.scr===0?`${autoScr[0]}×${autoScr[1]} detectada`:SCR[st.scr][0]+" manual";
+  $("det").textContent=st.src;
+  $("tag").textContent=`${st.car} → ${st.scr===0?"auto":SCR[st.scr][0]} · ${st.mode}`;
+  seg("scrs",SCR.map(x=>x[0]),SCR[st.scr][0],k=>{st.scr=SCR.findIndex(x=>x[0]===k);render()});
+  seg("cars",CAR.map(x=>x[0]),st.car,k=>{st.car=k;st.src="escolhido agora";render()});
+  seg("modes",MODES,st.mode,k=>{st.mode=k;st.fine=0;render()});
+}
+$("zoom").oninput=e=>{const base=zoomFor().z;st.fine=Math.round((e.target.value/100/base-1)*100);render()};
+$("svc").onchange=e=>{st.car=svcDefault[e.target.value];st.src="padrão do site";st.fine=0;render()};
+$("apply").onclick=()=>{$("saved").textContent="salvo para este título ✓"};
+$("site").onclick=()=>{$("saved").textContent="salvo como padrão do site ✓"};
+const presets=[{n:"Ultrawide cinema",scr:3,car:"2.39",mode:"preencher"},{n:"Anime no 21:9",scr:3,car:"16:9",mode:"meio"},{n:"Notebook 16:10",scr:1,car:"16:9",mode:"preencher"}];
+function drawPre(){$("pre").innerHTML="";presets.forEach(p=>{const b=document.createElement("button");b.innerHTML=`<b>${p.n}</b><small>${p.car} · ${SCR[p.scr][0]} · ${p.mode}</small>`;b.onclick=()=>{Object.assign(st,{scr:p.scr,car:p.car,mode:p.mode,fine:0,src:"preset"});render()};$("pre").appendChild(b)})}
+$("save").onclick=()=>{presets.push({n:"Preset "+(presets.length+1),scr:st.scr,car:st.car,mode:st.mode});drawPre()};
+drawPre();render();
+</script>

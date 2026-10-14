@@ -1,0 +1,75 @@
+{
+  "manifest_version": 3,
+  "name": "Zoomorph",
+  "version": "2.2.0",
+  "description": "Enquadre qualquer filme em qualquer tela: preencher, esticar e ajustar vídeo em Disney+, Netflix, Prime Video, Max, YouTube e outros.",
+  "permissions": [
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Zoomorph",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "toggle": {
+      "suggested_key": {
+        "default": "Alt+Z"
+      },
+      "description": "Alternar entre o enquadramento salvo e o original"
+    },
+    "cycle-ratio": {
+      "suggested_key": {
+        "default": "Alt+X"
+      },
+      "description": "Trocar o formato do filme"
+    },
+    "cycle-mode": {
+      "suggested_key": {
+        "default": "Alt+M"
+      },
+      "description": "Trocar o modo (preencher, meio-termo, esticar)"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "src/page.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "src/shared.js",
+        "src/adapters.js",
+        "src/content.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ]
+}
