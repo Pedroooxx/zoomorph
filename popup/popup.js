@@ -57,7 +57,7 @@ function render() {
   if (document.activeElement !== $("carR") && carNow) $("carR").value = carNow;
   $("carAuto").hidden = f.car === "auto";
   $("src").textContent = st.ignored ? `arquivo já é ${fmt(st.c)} · formato salvo ignorado`
-    : f.car === "auto" ? `auto · igual ao arquivo` : `ajustado · ${SRC[info.src]}`;
+    : f.car === "auto" ? (st.auto ? `auto · tarja detectada (${fmt(st.c)})` : "auto · igual ao arquivo") : `ajustado · ${SRC[info.src]}`;
   seg("modes", ZM.MODES.filter(m => m[0] !== "manual"), k => k === f.mode, k => set({ mode: k }), 1);
   const isManual = f.mode === "manual";
   $("manualBox").classList.toggle("on", isManual);

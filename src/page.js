@@ -2,7 +2,7 @@
 // Roda antes do site para capturar shadow roots, inclusive fechados.
 (() => {
   // Ao atualizar a extensão, a versão nova substitui a antiga na aba aberta.
-  const VERSION = "2.2.1";
+  const VERSION = "2.3.0";
   const prev = window.__zoomorph;
   if (prev && prev.v === VERSION) return;
   prev?.stop?.();
@@ -95,17 +95,21 @@
   const inter = (a, b) => ({ l: Math.max(a.l, b.l), t: Math.max(a.t, b.t), r: Math.min(a.r, b.r), b: Math.min(a.b, b.b) });
   const W = q => Math.max(1, q.r - q.l), H = q => Math.max(1, q.b - q.t);
 
-  // Área visível do player: a caixa do vídeo recortada pelos contêineres com
-  // overflow escondido e pela janela. O Prime, por exemplo, pode deixar o
-  // <video> maior que o player e cortar o excesso.
+  // Área do player: o primeiro contêiner que corta o excesso (overflow) e cobre
+  // a caixa do vídeo. O YouTube dimensiona o <video> do tamanho exato da imagem
+  // e deixa as faixas pretas no fundo do player, fora da caixa: medir só a
+  // caixa dava sempre 100%. Contêineres menores que o vídeo (o Prime pode
+  // deixar o <video> maior e cortar) apenas recortam a área.
   function visibleRect(v, box) {
-    let vis = inter(box, { l: 0, t: 0, r: innerWidth, b: innerHeight });
-    for (let el = v.parentElement; el && el !== document.documentElement; el = el.parentElement || el.getRootNode().host) {
-      const cs = getComputedStyle(el);
-      if (cs.overflow !== "visible") {
-        const r = el.getBoundingClientRect();
-        if (r.width && r.height) vis = inter(vis, { l: r.left, t: r.top, r: r.right, b: r.bottom });
-      }
+    const view = { l: 0, t: 0, r: innerWidth, b: innerHeight };
+    let vis = inter(box, view);
+    for (let el = v.parentElement; el && el !== document.body; el = el.parentElement || el.getRootNode().host) {
+      if (getComputedStyle(el).overflow === "visible") continue;
+      const r = el.getBoundingClientRect();
+      if (!r.width || !r.height) continue;
+      const rect = { l: r.left, t: r.top, r: r.right, b: r.bottom };
+      if (r.width >= W(box) * 0.9 && r.height >= H(box) * 0.9) return inter(rect, view);
+      vis = inter(vis, rect);
     }
     return vis;
   }
@@ -123,8 +127,13 @@
     return { l: cx - pw / 2, t: cy - ph / 2, r: cx + pw / 2, b: cy + ph / 2 };
   }
 
-  //  D = área de referência: em tela cheia, a tela; fora dela, um retângulo com
-  //      a proporção do monitor dentro da área visível do player.
+  // Formato do filme quando o usuário deixa "auto": em sites sem DRM (YouTube,
+  // Vimeo...) a tarja gravada no arquivo é detectada pelos pixels; nos demais
+  // vale o formato do próprio arquivo.
+  let autoCar = null;
+
+  //  D = área de referência: em tela cheia, a tela; fora dela, o player
+  //      (ou um formato fixo escolhido pelo usuário).
   //  E = parte do filme que aparece (filme dentro da imagem, recortado pela caixa).
   // O zoom é o necessário para E cobrir D. Se o vídeo já cobre, fica 100%.
   function geometry(v) {
@@ -132,18 +141,29 @@
     const fs = !!document.fullscreenElement;
     const vis = fs ? { l: 0, t: 0, r: innerWidth, b: innerHeight } : visibleRect(v, box);
     let dw = W(vis), dh = H(vis);
-    const r = cfg.screen === "box" ? null : cfg.screen || (fs ? null : screen.width / screen.height);
-    if (r) { if (dw / dh > r) dw = dh * r; else dh = dw / r; }
+    const fixed = typeof cfg.screen === "number" ? cfg.screen : null;
+    if (fixed) { if (dw / dh > fixed) dw = dh * fixed; else dh = dw / fixed; }
 
     const fr = v.videoWidth && v.videoHeight ? v.videoWidth / v.videoHeight : W(box) / H(box);
     const pic = pictureRect(v, box, fr);
     const ignored = cfg.car !== "auto" && cfg.car < fr - 0.03;
-    const c = cfg.car === "auto" || ignored ? fr : cfg.car;
+    const c = cfg.car === "auto" || ignored ? (cfg.car === "auto" && autoCar) || fr : cfg.car;
     let cw = W(pic), ch = cw / c;
     if (ch > H(pic)) { ch = H(pic); cw = ch * c; }
     const cx = (pic.l + pic.r) / 2, cy = (pic.t + pic.b) / 2;
     const film = inter({ l: cx - cw / 2, t: cy - ch / 2, r: cx + cw / 2, b: cy + ch / 2 }, box);
-    return { dw, dh, cw: W(film), ch: H(film), s: dw / dh, c, fr, ignored,
+
+    // Em janela, no modo "monitor", o zoom não passa do que a tela cheia
+    // pediria: num player mais largo que o monitor, preencher a janela
+    // cortaria imagem à toa. Conta feita só com proporções (tela de altura 1).
+    let cap = null;
+    if (!fs && cfg.screen == null) {
+      const m = screen.width / screen.height;
+      const [fw, fh] = fr < m ? [fr, 1] : [m, m / fr];
+      const [ew, eh] = c > fr ? [fw, fw / c] : [fh * c, fh];
+      cap = { x: m / ew, y: 1 / eh };
+    }
+    return { dw, dh, cw: W(film), ch: H(film), s: dw / dh, c, fr, ignored, cap, autoCar,
              fit: getComputedStyle(v).objectFit, box: [W(box), H(box)], vis: [W(vis), H(vis)] };
   }
 
@@ -153,17 +173,23 @@
   // Nunca abaixo de 100%, e a posição é limitada para não mostrar bordas.
   function compute(v) {
     const g = geometry(v);
-    const kx = Math.max(1, g.dw / g.cw), ky = Math.max(1, g.dh / g.ch);
+    let kx = Math.max(1, g.dw / g.cw), ky = Math.max(1, g.dh / g.ch);
+    if (g.cap) {
+      if (cfg.mode === "stretch") { kx = Math.min(kx, Math.max(1, g.cap.x)); ky = Math.min(ky, Math.max(1, g.cap.y)); }
+      else { const k = Math.min(Math.max(kx, ky), Math.max(1, g.cap.x, g.cap.y)); kx = ky = k; }
+    }
     let sx = 1, sy = 1;
     if (cfg.mode === "manual") sx = sy = Math.min(3, Math.max(1, cfg.zoom || 1));
     else if (cfg.mode === "fill") sx = sy = Math.max(kx, ky);
     else if (cfg.mode === "half") sx = sy = 1 + (Math.max(kx, ky) - 1) / 2;
     else if (cfg.mode === "stretch") { sx = kx; sy = ky; }
-    sx = Math.min(4, sx); sy = Math.min(4, sy);
+    // Arredonda diferenças imperceptíveis (evita transform de 100,03%).
+    const snap = z => (Math.abs(z - 1) < 0.005 ? 1 : Math.min(4, z));
+    sx = snap(sx); sy = snap(sy);
     const lim = z => (50 * (z - 1)) / z;
     const x = Math.max(-lim(sx), Math.min(lim(sx), cfg.x || 0));
     const y = Math.max(-lim(sy), Math.min(lim(sy), cfg.y || 0));
-    return { sx, sy, x, y, s: g.s, c: g.c, ignored: g.ignored };
+    return { sx, sy, x, y, s: g.s, c: g.c, ignored: g.ignored, auto: !!(cfg.car === "auto" && autoCar) };
   }
 
   // O zoom vaza da caixa do vídeo; algum contêiner precisa cortar o excesso.
@@ -216,7 +242,7 @@
   function report(v, r) {
     const st = v
       ? { has: true, vw: v.videoWidth, vh: v.videoHeight, bw: layoutSize(v).w, bh: layoutSize(v).h,
-          s: r.s, c: r.c, zoom: Math.max(r.sx, r.sy), active: !!v.dataset.zoomorph, ignored: r.ignored, fs: !!document.fullscreenElement }
+          s: r.s, c: r.c, zoom: Math.max(r.sx, r.sy), active: !!v.dataset.zoomorph, ignored: r.ignored, auto: r.auto, fs: !!document.fullscreenElement }
       : { has: false };
     const key = JSON.stringify(st);
     if (key === last) return;
@@ -250,8 +276,30 @@
     while (bot > top && dark(bot)) bot--;
     if (top >= H - 1) return { ok: false, reason: "quadro escuro ou vídeo protegido" };
     const contentH = bot - top + 1;
-    if (contentH > H * 0.97) return { ok: true, car: +(v.videoWidth / v.videoHeight).toFixed(2) };
-    return { ok: true, car: +(W / contentH).toFixed(2) };
+    const symmetric = Math.abs(top - (H - 1 - bot)) <= 2;
+    if (contentH > H * 0.97) return { ok: true, car: +(v.videoWidth / v.videoHeight).toFixed(2), contentFrac: 1, symmetric: true };
+    return { ok: true, car: +(W / contentH).toFixed(2), contentFrac: contentH / H, symmetric };
+  }
+
+  // Amostragem contínua para o "auto": um quadro a cada 2 s em 160 px. Cenas
+  // escuras encolhem a área "com imagem", então vale a maior altura vista nas
+  // últimas amostras. Tarja só conta se for simétrica em cima e embaixo.
+  let samples = [], sampledVideo = null, protectedVideo = null;
+  function sampleBars() {
+    const v = target;
+    if (!v || v.paused || cfg.car !== "auto" || cfg.mode === "manual" || cfg.mode === "original") return;
+    if (v !== sampledVideo) { sampledVideo = v; samples = []; autoCar = null; }
+    if (v === protectedVideo || !v.videoWidth) return;
+    const res = detectBars();
+    if (!res.ok) { if (/protege o/.test(res.reason)) protectedVideo = v; return; }
+    if (!res.symmetric) return;
+    samples.push(res.contentFrac);
+    if (samples.length > 6) samples.shift();
+    if (samples.length < 2) return;
+    const frac = Math.max(...samples);
+    const fr = v.videoWidth / v.videoHeight;
+    const car = frac > 0.97 ? null : +(fr / frac).toFixed(2);
+    if (car !== autoCar) { autoCar = car; last = null; apply(); }
   }
 
   function onMessage(e) {
@@ -266,7 +314,7 @@
   window.addEventListener("message", onMessage);
   document.addEventListener("fullscreenchange", onFs, true);
   window.addEventListener("resize", onFs);
-  const timers = [setInterval(apply, 800), setInterval(() => { last = null; }, 4000)];
+  const timers = [setInterval(apply, 800), setInterval(() => { last = null; }, 4000), setInterval(sampleBars, 2000)];
 
   window.__zoomorph = {
     v: VERSION,

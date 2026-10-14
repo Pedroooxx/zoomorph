@@ -68,7 +68,7 @@ O Zoomorph mede o que aparece de fato na tela (o player, o arquivo de vídeo e o
   <tr>
     <td valign="top">
       <h4>🎞️ Tarja gravada no arquivo</h4>
-      Ajuste o formato do filme quando a tarja vem dentro do vídeo, ou detecte pela imagem em sites sem proteção (YouTube, Vimeo…).
+      No YouTube e em outros sites sem proteção, a tarja dentro do arquivo é detectada sozinha. Nos com DRM, ajuste o formato uma vez e ele fica salvo.
     </td>
     <td valign="top">
       <h4>🧠 Lembra cada filme</h4>
@@ -137,7 +137,8 @@ Os três primeiros podem ser trocados na página de atalhos do navegador (link *
 | Disney+ | ✅ testado |
 | Prime Video | ✅ testado |
 | Netflix · Max · Apple TV+ · Paramount+ · Globoplay · Crunchyroll | 🟡 reconhecidos, aguardando testes |
-| YouTube · Vimeo · Twitch · qualquer site com `<video>` | 🟡 modo genérico |
+| YouTube | ✅ testado, com detecção automática de tarja |
+| Vimeo · Twitch · qualquer site com `<video>` | 🟡 modo genérico |
 
 Testou em algum? [Conte como foi](https://github.com/Pedroooxx/zoomorph/issues/new/choose): o modelo de issue já pede o diagnóstico necessário.
 
@@ -172,6 +173,8 @@ O zoom é o necessário para a **parte visível do filme** cobrir a **área de r
 <summary><b>Por que a detecção de tarja não funciona na Netflix, na Disney+ e no Prime?</b></summary>
 
 Esses sites protegem o vídeo com DRM, e o navegador não deixa nenhuma extensão ler a imagem. Neles, o Zoomorph usa o formato do arquivo e o que você salvou para o título. Ajuste uma vez com a barra **formato** e o filme volta certo da próxima vez.
+
+No YouTube, no Vimeo e em outros sites sem DRM, a tarja gravada no arquivo é detectada sozinha no formato **auto**.
 </details>
 
 <details>
