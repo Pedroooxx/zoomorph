@@ -5,7 +5,7 @@
 | Loja | Status | Identificação |
 |---|---|---|
 | Edge Add-ons | Em revisão desde 15/10/2026 (versão 2.3.3, prazo informado: até 7 dias úteis) | Store ID `0RDCKDC295GJ` · CRX ID `npkglikcgcbfnelmiimhjcmnmmabjlka` · link após aprovação: `https://microsoftedge.microsoft.com/addons/detail/npkglikcgcbfnelmiimhjcmnmmabjlka` |
-| Opera Add-ons | Não enviado | |
+| Opera Add-ons | Em moderação desde 15/10/2026 (versão 2.3.3, moderação automática ativada) | ID `heplchjbppmifkjapcfmljkionpkgjje` · link após aprovação: `https://addons.opera.com/extensions/details/zoomorph/` · painel: `https://addons.opera.com/developer/package/307571/` |
 | Chrome Web Store | Não enviado | |
 
 Faça tudo no seu navegador (Opera, Chrome ou Edge), fora do app. Abra este arquivo ao lado e copie os valores.
