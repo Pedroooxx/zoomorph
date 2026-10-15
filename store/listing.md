@@ -13,6 +13,7 @@
 | Ícone | `icons/icon128.png` |
 | Bloco pequeno 440×280 | `store/images/promo-small-440x280.png` |
 | Bloco grande 1400×560 | `store/images/promo-marquee-1400x560.png` |
+| Imagem promocional do Opera 300×188 | `store/images/promo-opera-300x188.png` (já enviada) |
 | Capturas 1280×800 | `store/images/screenshot-1-1280x800.png`, `screenshot-2-1280x800.png` |
 
 ## Descrição curta (até 132 caracteres)
