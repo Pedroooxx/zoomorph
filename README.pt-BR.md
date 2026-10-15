@@ -154,7 +154,8 @@ Os três primeiros podem ser trocados na página de atalhos do navegador (link *
 |---|---|
 | Disney+ | ✅ testado |
 | Prime Video | ✅ testado |
-| Netflix · Max · Apple TV+ · Paramount+ · Globoplay · Crunchyroll | 🟡 reconhecidos, aguardando testes |
+| Netflix | 🟡 correção na 2.3.5 (imagem deslocada), aguardando confirmação |
+| Max · Apple TV+ · Paramount+ · Globoplay · Crunchyroll | 🟡 reconhecidos, aguardando testes |
 | YouTube | ✅ testado, com detecção automática de tarja |
 | Vimeo · Twitch · qualquer site com `<video>` | 🟡 modo genérico |
 

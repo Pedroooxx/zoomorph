@@ -158,7 +158,8 @@ The first three can be changed on your browser's shortcuts page (the **atalhos**
 | Disney+ | ✅ tested |
 | Prime Video | ✅ tested |
 | YouTube | ✅ tested, with automatic letterbox detection |
-| Netflix · Max · Apple TV+ · Paramount+ · Globoplay · Crunchyroll | 🟡 recognized, awaiting tests |
+| Netflix | 🟡 fix in 2.3.5 (picture was shifted), awaiting confirmation |
+| Max · Apple TV+ · Paramount+ · Globoplay · Crunchyroll | 🟡 recognized, awaiting tests |
 | Vimeo · Twitch · any site with a `<video>` | 🟡 generic mode |
 
 Tried it somewhere? [Tell us how it went](https://github.com/Pedroooxx/zoomorph/issues/new/choose). To attach a diagnostic, press <kbd>Alt</kbd>+<kbd>D</kbd> while the video plays and paste it into the issue.
