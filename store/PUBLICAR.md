@@ -4,45 +4,15 @@
 
 | Loja | Status | Identificação |
 |---|---|---|
-| Edge Add-ons | ✅ Publicado (versão 2.3.3) | Store ID `0RDCKDC295GJ` · CRX ID `npkglikcgcbfnelmiimhjcmnmmabjlka` · link: `https://microsoftedge.microsoft.com/addons/detail/zoomorph/npkglikcgcbfnelmiimhjcmnmmabjlka` |
+| Edge Add-ons | ✅ Publicado (2.3.3 no ar; atualização 2.3.4 em revisão desde 15/10/2026) | Store ID `0RDCKDC295GJ` · CRX ID `npkglikcgcbfnelmiimhjcmnmmabjlka` · link: `https://microsoftedge.microsoft.com/addons/detail/zoomorph/npkglikcgcbfnelmiimhjcmnmmabjlka` |
 | Opera Add-ons | Em moderação desde 15/10/2026 (versão 2.3.3, moderação automática ativada) | ID `heplchjbppmifkjapcfmljkionpkgjje` · link após aprovação: `https://addons.opera.com/extensions/details/zoomorph/` · painel: `https://addons.opera.com/developer/package/307571/` |
 | Chrome Web Store | Não enviado | |
 
 ### Ajustes pendentes para a próxima atualização das fichas
 
-Fazer junto com o envio da próxima versão, para não reiniciar a revisão em andamento:
-
-- **Edge e Opera:** na descrição, trocar a última linha `Open source: https://github.com/Pedroooxx/zoomorph` por `Source code: https://github.com/Pedroooxx/zoomorph` (a licença mudou para PolyForm Noncommercial, que não é "open source").
-- **Edge:** atualizar o pacote para a versão com os links de avaliação das lojas (CHANGELOG, "Unreleased").
-- **Edge e Opera:** deixar a descrição como no Chrome, em português em cima e em inglês embaixo (o app e as imagens estão em português). O texto está em `store/CHROME-HANDOFF.md`, seção 2.
-- **Opera:** o campo **License URL** já aponta para o `LICENSE` do repositório e passa a mostrar a nova licença sozinho.
-
-Faça tudo no seu navegador (Opera, Chrome ou Edge), fora do app. Abra este arquivo ao lado e copie os valores.
-
-**Arquivos** (pasta `D:\PEDRO\Extensions\stream-zoom`)
-
-| O quê | Arquivo |
-|---|---|
-| Pacote | `dist\zoomorph-2.3.3.zip` |
-| Ícone 128 | `store\images\icon-128.png` |
-| Logo 300×300 (Edge) | `store\images\logo-300x300.png` |
-| Capturas 1280×800 | `store\images\screenshot-1-1280x800.png`, `screenshot-2-1280x800.png` |
-| Bloco pequeno 440×280 | `store\images\promo-small-440x280.png` |
-| Bloco grande 1400×560 | `store\images\promo-marquee-1400x560.png` |
-
-**Links que se repetem**
-
-| Campo | Valor |
-|---|---|
-| Site / página inicial | `https://pedroooxx.github.io/zoomorph/` |
-| Política de privacidade | `https://pedroooxx.github.io/zoomorph/privacy.html` |
-| Suporte | `https://github.com/Pedroooxx/zoomorph/issues` |
-
-Os textos (descrição curta e completa, em português e inglês) estão em [listing.md](listing.md).
-
-> Os nomes dos campos abaixo podem mudar um pouco de uma loja para outra ou com o tempo. Se algo não bater, me mande um print que eu te digo o que pôr.
-
----
+- **Edge:** feito na 2.3.4 (descrição em português com inglês embaixo, "Source code", pacote com LICENSE e links de avaliação). Aguardando revisão.
+- **Opera:** quando a 2.3.3 for aprovada, enviar a 2.3.4 em Versions e trocar a descrição pela versão em português com inglês embaixo (texto em `store/CHROME-HANDOFF.md`, seção 2).
+- **Chrome:** em revisão com a 2.3.3; depois de aprovada, enviar a 2.3.4.
 
 ## 1. Opera Add-ons (grátis)
 
