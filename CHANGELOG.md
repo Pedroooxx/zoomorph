@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.3 — 2026-10-15
+
+- Descrição do manifest encurtada para o limite de 132 caracteres exigido pelas lojas (Edge e Chrome).
+
 ## 2.3.2 — 2026-10-15
 
 YouTube funcionando de verdade.

@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Zoomorph",
-  "version": "2.3.2",
-  "description": "Enquadre qualquer filme em qualquer tela: preencher, esticar e ajustar vídeo em Disney+, Netflix, Prime Video, Max, YouTube e outros.",
+  "version": "2.3.3",
+  "description": "Tire a tarja preta dos filmes em streaming. Zoom automático pela sua tela e pelo formato do vídeo, em qualquer site.",
   "permissions": [
     "storage",
     "scripting"

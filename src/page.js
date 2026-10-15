@@ -2,7 +2,7 @@
 // Roda antes do site para capturar shadow roots, inclusive fechados.
 (() => {
   // Ao atualizar a extensão, a versão nova substitui a antiga na aba aberta.
-  const VERSION = "2.3.2";
+  const VERSION = "2.3.3";
   const prev = window.__zoomorph;
   if (prev && prev.v === VERSION) return;
   prev?.stop?.();
