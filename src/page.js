@@ -301,7 +301,7 @@
     return { ok: true, car: +(W / contentH).toFixed(2), contentFrac: contentH / H, symmetric };
   }
 
-  // Amostragem contínua para o "auto": um quadro a cada 2 s em 160 px. Vale o
+  // Amostragem contínua para o "auto": um quadro por segundo em 160 px. Vale o
   // formato que mais aparece no último minuto, não o último visto: trailers
   // misturam cenas com tarja, cartelas em tela cheia e cenas escuras, e decidir
   // por poucas amostras fazia o zoom ligar e desligar. Tarja só conta se for
@@ -319,7 +319,7 @@
     if (!res.ok) { if (/protege o/.test(res.reason)) protectedVideo = v; return; }
     if (!res.symmetric) return;
     samples.push(Math.round(res.contentFrac * 50) / 50); // faixas de 2%
-    if (samples.length > 30) samples.shift();
+    if (samples.length > 60) samples.shift();
     const count = new Map();
     for (const f of samples) count.set(f, (count.get(f) || 0) + 1);
     let best = null, n = 0;
@@ -368,7 +368,7 @@
   document.addEventListener("fullscreenchange", onFs, true);
   const onResize = () => setTimeout(apply, 50);
   window.addEventListener("resize", onResize);
-  const timers = [setInterval(apply, 800), setInterval(() => { last = null; }, 4000), setInterval(sampleBars, 2000)];
+  const timers = [setInterval(apply, 800), setInterval(() => { last = null; }, 4000), setInterval(sampleBars, 1000)];
 
   window.__zoomorph = {
     v: VERSION,
