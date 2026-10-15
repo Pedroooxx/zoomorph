@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.3.4 — 2026-10-15
 
 - **License changed** from MIT to [PolyForm Noncommercial 1.0.0](LICENSE): free for non-commercial use; the Zoomorph name and logo are reserved. Versions 2.3.3 and earlier remain under MIT.
 - The rating prompt in the popup links to the Edge Add-ons and Opera Add-ons listings.
