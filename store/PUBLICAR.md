@@ -6,7 +6,7 @@
 |---|---|---|
 | Edge Add-ons | ✅ Publicado (2.3.4 no ar; atualização 2.3.6 em revisão desde 15/10/2026) | Store ID `0RDCKDC295GJ` · CRX ID `npkglikcgcbfnelmiimhjcmnmmabjlka` · link: `https://microsoftedge.microsoft.com/addons/detail/zoomorph/npkglikcgcbfnelmiimhjcmnmmabjlka` |
 | Opera Add-ons | Em moderação desde 15/10/2026 (versão 2.3.3, moderação automática ativada) | ID `heplchjbppmifkjapcfmljkionpkgjje` · link após aprovação: `https://addons.opera.com/extensions/details/zoomorph/` · painel: `https://addons.opera.com/developer/package/307571/` |
-| Chrome Web Store | Não enviado | |
+| Chrome Web Store | Em revisão desde 15/10/2026 (versão 2.3.3) | |
 
 ### Ajustes pendentes
 
@@ -20,7 +20,7 @@ Versão atual do código: **2.3.6** (correção de Netflix e Prime Video; inclui
 
 1. Abra https://addons.opera.com/developer/ e entre com a sua conta Opera (ou crie uma).
 2. Aceite o contrato de desenvolvedor, se for pedido.
-3. Clique em **Upload new extension** (ou **Add extension**) e envie o `dist\zoomorph-2.3.3.zip`.
+3. Clique em **Upload new extension** (ou **Add extension**) e envie o `dist\zoomorph-<versão atual>.zip`.
 4. Na ficha, preencha:
    - **Name:** `Zoomorph`
    - **Category:** `Productivity` (ou `Accessibility`, se existir)
@@ -39,7 +39,7 @@ Versão atual do código: **2.3.6** (correção de Netflix e Prime Video; inclui
 
 1. Abra https://partner.microsoft.com/dashboard/microsoftedge/overview e entre com uma conta Microsoft.
 2. Na primeira vez, faça o **cadastro de desenvolvedor**: conta individual, nome de exibição `Pedroooxx` (ou o que preferir), país e contato. Não tem custo.
-3. Clique em **Create new extension** e envie o `dist\zoomorph-2.3.3.zip`.
+3. Clique em **Create new extension** e envie o `dist\zoomorph-<versão atual>.zip`.
 4. **Availability:** visibilidade **Public**, mercados **todos**.
 5. **Properties:**
    - **Category:** `Productivity`
@@ -64,7 +64,7 @@ Versão atual do código: **2.3.6** (correção de Netflix e Prime Video; inclui
 1. Abra https://chrome.google.com/webstore/devconsole no Chrome e entre com a conta Google.
 2. Aceite o contrato e **pague a taxa de registro** (cartão, uma vez só; a página mostra o valor antes de cobrar).
 3. Em **Account**, preencha o nome do editor (`Pedroooxx`) e **verifique o e-mail de contato**. Sem isso o botão de envio fica bloqueado.
-4. Clique em **New item** e envie o `dist\zoomorph-2.3.3.zip`.
+4. Clique em **New item** e envie o `dist\zoomorph-<versão atual>.zip`.
 5. Aba **Store listing:**
    - **Description:** a descrição completa (PT, ou EN se o idioma principal for inglês)
    - **Category:** `Tools` (Ferramentas)

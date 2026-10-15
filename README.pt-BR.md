@@ -14,7 +14,7 @@
 <p align="center">
   <a href="https://microsoftedge.microsoft.com/addons/detail/zoomorph/npkglikcgcbfnelmiimhjcmnmmabjlka"><img alt="Edge Add-ons" src="https://img.shields.io/badge/Edge%20Add--ons-dispon%C3%ADvel-8a3ffc?logo=microsoftedge&logoColor=white&labelColor=140826&style=for-the-badge"></a>
   <a href="https://addons.opera.com/extensions/details/zoomorph/"><img alt="Opera Add-ons" src="https://img.shields.io/badge/Opera%20Add--ons-em%20revis%C3%A3o-8a3ffc?logo=opera&logoColor=white&labelColor=140826&style=for-the-badge"></a>
-  <img alt="Chrome Web Store" src="https://img.shields.io/badge/Chrome%20Web%20Store-em%20breve-a596c7?logo=googlechrome&logoColor=white&labelColor=140826&style=for-the-badge">
+  <img alt="Chrome Web Store" src="https://img.shields.io/badge/Chrome%20Web%20Store-em%20revis%C3%A3o-a596c7?logo=googlechrome&logoColor=white&labelColor=140826&style=for-the-badge">
 </p>
 
 <h3 align="center">O filme na tela inteira, sem tarja preta.</h3>
@@ -102,10 +102,10 @@ O Zoomorph mede o que aparece de fato na tela (o player, o arquivo de vídeo e o
 |---|---|---|
 | Microsoft Edge | [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/zoomorph/npkglikcgcbfnelmiimhjcmnmmabjlka) | ✅ Disponível |
 | Opera | [Opera Add-ons](https://addons.opera.com/extensions/details/zoomorph/) | Em revisão pela Opera |
-| Chrome, Brave e outros | Chrome Web Store | Em breve |
+| Chrome, Brave e outros | Chrome Web Store | Em revisão pelo Google |
 
 > [!NOTE]
-> A ficha do Opera passa a funcionar quando a revisão terminar. Até lá, ou no Chrome, instale pelo arquivo.
+> As fichas do Opera e do Chrome passam a funcionar quando as revisões terminarem. Até lá, instale pelo arquivo.
 
 ### Pelo arquivo
 

@@ -1,3 +1,5 @@
+<!-- Roteiro usado no envio inicial ao Chrome (versão 2.3.3). Para atualizações, envie o zip da versão atual em dist/. -->
+
 Você vai me ajudar a publicar a extensão Zoomorph na Chrome Web Store. Já estou logado no painel, nesta aba:
 https://chrome.google.com/webstore/devconsole/c41fe9c7-0918-4544-9d33-af8ab2ea1469
 
