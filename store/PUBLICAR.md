@@ -6,7 +6,7 @@ Faça tudo no seu navegador (Opera, Chrome ou Edge), fora do app. Abra este arqu
 
 | O quê | Arquivo |
 |---|---|
-| Pacote | `dist\zoomorph-2.3.2.zip` |
+| Pacote | `dist\zoomorph-2.3.3.zip` |
 | Ícone 128 | `store\images\icon-128.png` |
 | Logo 300×300 (Edge) | `store\images\logo-300x300.png` |
 | Capturas 1280×800 | `store\images\screenshot-1-1280x800.png`, `screenshot-2-1280x800.png` |
@@ -31,7 +31,7 @@ Os textos (descrição curta e completa, em português e inglês) estão em [lis
 
 1. Abra https://addons.opera.com/developer/ e entre com a sua conta Opera (ou crie uma).
 2. Aceite o contrato de desenvolvedor, se for pedido.
-3. Clique em **Upload new extension** (ou **Add extension**) e envie o `dist\zoomorph-2.3.2.zip`.
+3. Clique em **Upload new extension** (ou **Add extension**) e envie o `dist\zoomorph-2.3.3.zip`.
 4. Na ficha, preencha:
    - **Name:** `Zoomorph`
    - **Category:** `Productivity` (ou `Accessibility`, se existir)
@@ -50,7 +50,7 @@ Os textos (descrição curta e completa, em português e inglês) estão em [lis
 
 1. Abra https://partner.microsoft.com/dashboard/microsoftedge/overview e entre com uma conta Microsoft.
 2. Na primeira vez, faça o **cadastro de desenvolvedor**: conta individual, nome de exibição `Pedroooxx` (ou o que preferir), país e contato. Não tem custo.
-3. Clique em **Create new extension** e envie o `dist\zoomorph-2.3.2.zip`.
+3. Clique em **Create new extension** e envie o `dist\zoomorph-2.3.3.zip`.
 4. **Availability:** visibilidade **Public**, mercados **todos**.
 5. **Properties:**
    - **Category:** `Productivity`
@@ -75,7 +75,7 @@ Os textos (descrição curta e completa, em português e inglês) estão em [lis
 1. Abra https://chrome.google.com/webstore/devconsole no Chrome e entre com a conta Google.
 2. Aceite o contrato e **pague a taxa de registro** (cartão, uma vez só; a página mostra o valor antes de cobrar).
 3. Em **Account**, preencha o nome do editor (`Pedroooxx`) e **verifique o e-mail de contato**. Sem isso o botão de envio fica bloqueado.
-4. Clique em **New item** e envie o `dist\zoomorph-2.3.2.zip`.
+4. Clique em **New item** e envie o `dist\zoomorph-2.3.3.zip`.
 5. Aba **Store listing:**
    - **Description:** a descrição completa (PT, ou EN se o idioma principal for inglês)
    - **Category:** `Tools` (Ferramentas)
