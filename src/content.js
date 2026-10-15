@@ -62,12 +62,26 @@
         "background:rgba(20,8,38,.86);color:#f3edff;font:500 13px ui-monospace,Consolas,monospace;padding:8px 12px;" +
         "border-radius:6px;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(6px)";
     }
-    hud.innerHTML = `<img src="${chrome.runtime.getURL("icons/icon32.png")}" width="16" height="16" alt=""><span></span>`;
+    if (!hud.firstChild) {
+      const img = document.createElement("img");
+      img.src = chrome.runtime.getURL("icons/icon32.png"); img.width = img.height = 16; img.alt = "";
+      hud.append(img, document.createElement("span"));
+    }
     hud.lastChild.textContent = text;
     (document.fullscreenElement || document.body || document.documentElement).appendChild(hud);
     hud.style.opacity = "1";
     clearTimeout(hudTimer);
     hudTimer = setTimeout(() => (hud.style.opacity = "0"), 1500);
+  }
+
+  function flash(text) {
+    if (!hud) showHud();
+    if (!hud) return;
+    hud.lastChild.textContent = text;
+    (document.fullscreenElement || document.body).appendChild(hud);
+    hud.style.opacity = "1";
+    clearTimeout(hudTimer);
+    hudTimer = setTimeout(() => (hud.style.opacity = "0"), 2500);
   }
 
   // ---------- comandos ----------
@@ -89,6 +103,19 @@
     cmds[cmd](arg);
     setTimeout(showHud, 120);
   }
+
+  // Alt+D: copia o diagnóstico (funciona em tela cheia, onde o console não abre).
+  window.addEventListener("keydown", e => {
+    if (!e.altKey || e.shiftKey || e.code !== "KeyD" || window !== top && !status.has) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    window.postMessage({ type: "zoomorph:debug" }, "*");
+  }, true);
+  window.addEventListener("message", async e => {
+    if (e.source !== window || e.data?.type !== "zoomorph:debugged") return;
+    const json = JSON.stringify({ ...JSON.parse(e.data.json), content: { cfg: cur, src: cur.src, titleKey, status } });
+    try { await navigator.clipboard.writeText(json); flash("Diagnóstico copiado"); }
+    catch { console.log("[Zoomorph] diagnóstico:", json); flash("Diagnóstico no console (Ctrl+Shift+J)"); }
+  });
 
   window.addEventListener("keydown", e => {
     if (!e.altKey || !status.has) return;

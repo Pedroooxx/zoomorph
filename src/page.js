@@ -2,7 +2,7 @@
 // Roda antes do site para capturar shadow roots, inclusive fechados.
 (() => {
   // Ao atualizar a extensão, a versão nova substitui a antiga na aba aberta.
-  const VERSION = "2.3.0";
+  const VERSION = "2.3.2";
   const prev = window.__zoomorph;
   if (prev && prev.v === VERSION) return;
   prev?.stop?.();
@@ -210,7 +210,24 @@
     }
   }
 
+  // Regra numa folha de estilo própria, além do style inline: players como o
+  // do YouTube reescrevem o atributo style do <video> ao redimensionar e ao
+  // entrar/sair da tela cheia, e a regra continua valendo (mesma técnica do
+  // Ultrawidify). Uma folha por raiz (documento ou shadow root do vídeo).
+  const sheets = new Map();
+  function setRule(v, t) {
+    const root = v.getRootNode();
+    let sh = sheets.get(root);
+    if (!sh) {
+      sh = new CSSStyleSheet();
+      try { root.adoptedStyleSheets = [...root.adoptedStyleSheets, sh]; } catch { return; }
+      sheets.set(root, sh);
+    }
+    sh.replaceSync(t ? `video[data-zoomorph]{transform:${t} !important;transform-origin:center center !important}` : "");
+  }
+
   function clear(v) {
+    setRule(v, null);
     v.style.removeProperty("transform");
     v.style.removeProperty("transform-origin");
     delete v.dataset.zoomorph;
@@ -223,7 +240,9 @@
     if (target && target !== v && target.dataset.zoomorph) clear(target);
     if (target !== v) applied = { sx: 1, sy: 1 };
     target = v;
+    watch(v);
     if (!v) return report(null);
+    if (settling) return;
     const r = compute(v);
     const active = cfg.enabled && (r.sx !== 1 || r.sy !== 1);
     if (active) {
@@ -233,6 +252,7 @@
         v.style.setProperty("transform-origin", "center center", "important");
       }
       v.dataset.zoomorph = "1";
+      setRule(v, t);
       applied = { sx: r.sx, sy: r.sy };
       clipTo(v);
     } else if (v.dataset.zoomorph) { clear(v); applied = { sx: 1, sy: 1 }; }
@@ -281,39 +301,73 @@
     return { ok: true, car: +(W / contentH).toFixed(2), contentFrac: contentH / H, symmetric };
   }
 
-  // Amostragem contínua para o "auto": um quadro a cada 2 s em 160 px. Cenas
-  // escuras encolhem a área "com imagem", então vale a maior altura vista nas
-  // últimas amostras. Tarja só conta se for simétrica em cima e embaixo.
-  let samples = [], sampledVideo = null, protectedVideo = null;
+  // Amostragem contínua para o "auto": um quadro a cada 2 s em 160 px. Vale o
+  // formato que mais aparece no último minuto, não o último visto: trailers
+  // misturam cenas com tarja, cartelas em tela cheia e cenas escuras, e decidir
+  // por poucas amostras fazia o zoom ligar e desligar. Tarja só conta se for
+  // simétrica em cima e embaixo; quadros escuros são ignorados.
+  let samples = [], sampledVideo = null, sampledId = "", protectedVideo = null;
   function sampleBars() {
     const v = target;
     if (!v || v.paused || cfg.car !== "auto" || cfg.mode === "manual" || cfg.mode === "original") return;
-    if (v !== sampledVideo) { sampledVideo = v; samples = []; autoCar = null; }
+    // O YouTube reaproveita o mesmo <video> ao trocar de vídeo: a troca é
+    // reconhecida pelo arquivo (src) e pelo tamanho, não só pelo elemento.
+    const id = v.currentSrc + "|" + v.videoWidth + "x" + v.videoHeight + "|" + Math.round(v.duration || 0);
+    if (v !== sampledVideo || id !== sampledId) { sampledVideo = v; sampledId = id; samples = []; if (autoCar) { autoCar = null; last = null; apply(); } }
     if (v === protectedVideo || !v.videoWidth) return;
     const res = detectBars();
     if (!res.ok) { if (/protege o/.test(res.reason)) protectedVideo = v; return; }
     if (!res.symmetric) return;
-    samples.push(res.contentFrac);
-    if (samples.length > 6) samples.shift();
-    if (samples.length < 2) return;
-    const frac = Math.max(...samples);
+    samples.push(Math.round(res.contentFrac * 50) / 50); // faixas de 2%
+    if (samples.length > 30) samples.shift();
+    const count = new Map();
+    for (const f of samples) count.set(f, (count.get(f) || 0) + 1);
+    let best = null, n = 0;
+    for (const [f, k] of count) if (k > n || (k === n && f < best)) { best = f; n = k; }
+    if (n < 2 || n < samples.length * 0.4) return; // ainda sem maioria: mantém o atual
     const fr = v.videoWidth / v.videoHeight;
-    const car = frac > 0.97 ? null : +(fr / frac).toFixed(2);
+    const car = best > 0.96 ? null : +(fr / best).toFixed(2);
     if (car !== autoCar) { autoCar = car; last = null; apply(); }
   }
+  window.__zoomorphSamples = () => ({ samples: [...samples], autoCar, protected: protectedVideo === target });
 
   function onMessage(e) {
     if (e.source !== window || !e.data) return;
     if (e.data.type === "zoomorph:cfg") { cfg = e.data.cfg; last = null; apply(); }
     if (e.data.type === "zoomorph:hello") { last = null; apply(); }
+    if (e.data.type === "zoomorph:debug") {
+      let d;
+      try { d = window.__zoomorphDebug(); d.samples = window.__zoomorphSamples?.(); d.version = VERSION;
+            d.screen = screen.width + "x" + screen.height; d.view = innerWidth + "x" + innerHeight; } catch (err) { d = { error: String(err) }; }
+      window.postMessage({ type: "zoomorph:debugged", json: JSON.stringify(d) }, "*");
+    }
     if (e.data.type === "zoomorph:detect")
       window.postMessage({ type: "zoomorph:detected", res: detectBars() }, "*");
   }
 
-  const onFs = () => setTimeout(apply, 50);
+  // Ao entrar/sair da tela cheia, o player só redimensiona o <video> um pouco
+  // depois. Calcular nesse meio-tempo juntava "tela inteira" com "vídeo ainda
+  // do tamanho da janela" e dava zoom demais por um instante. Agora o zoom é
+  // retirado na troca e só volta quando o vídeo terminar de mudar de tamanho
+  // (ResizeObserver), com um limite de 700 ms.
+  let settling = null;
+  const settle = () => { clearTimeout(settling); settling = null; last = null; apply(); };
+  // Durante a troca, espera o tamanho parar de mudar por 150 ms (o player
+  // pode redimensionar em mais de um passo).
+  const ro = new ResizeObserver(() => {
+    if (settling) { clearTimeout(settling); settling = setTimeout(settle, 150); } else apply();
+  });
+  let observed = null;
+  function watch(v) { if (v !== observed) { observed && ro.unobserve(observed); v && ro.observe(v); observed = v; } }
+  const onFs = () => {
+    if (target?.dataset.zoomorph) { setRule(target, null); target.style.removeProperty("transform"); }
+    clearTimeout(settling);
+    settling = setTimeout(settle, 700);
+  };
   window.addEventListener("message", onMessage);
   document.addEventListener("fullscreenchange", onFs, true);
-  window.addEventListener("resize", onFs);
+  const onResize = () => setTimeout(apply, 50);
+  window.addEventListener("resize", onResize);
   const timers = [setInterval(apply, 800), setInterval(() => { last = null; }, 4000), setInterval(sampleBars, 2000)];
 
   window.__zoomorph = {
@@ -322,7 +376,8 @@
       timers.forEach(clearInterval);
       window.removeEventListener("message", onMessage);
       document.removeEventListener("fullscreenchange", onFs, true);
-      window.removeEventListener("resize", onFs);
+      window.removeEventListener("resize", onResize);
+      ro.disconnect();
       if (target?.dataset.zoomorph) clear(target);
     },
   };
