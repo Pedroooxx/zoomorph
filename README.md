@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://microsoftedge.microsoft.com/addons/detail/npkglikcgcbfnelmiimhjcmnmmabjlka"><img alt="Edge Add-ons" src="https://img.shields.io/badge/Edge%20Add--ons-in%20review-8a3ffc?logo=microsoftedge&logoColor=white&labelColor=140826&style=for-the-badge"></a>
+  <a href="https://microsoftedge.microsoft.com/addons/detail/zoomorph/npkglikcgcbfnelmiimhjcmnmmabjlka"><img alt="Edge Add-ons" src="https://img.shields.io/badge/Edge%20Add--ons-available-8a3ffc?logo=microsoftedge&logoColor=white&labelColor=140826&style=for-the-badge"></a>
   <a href="https://addons.opera.com/extensions/details/zoomorph/"><img alt="Opera Add-ons" src="https://img.shields.io/badge/Opera%20Add--ons-in%20review-8a3ffc?logo=opera&logoColor=white&labelColor=140826&style=for-the-badge"></a>
   <img alt="Chrome Web Store" src="https://img.shields.io/badge/Chrome%20Web%20Store-coming%20soon-a596c7?logo=googlechrome&logoColor=white&labelColor=140826&style=for-the-badge">
 </p>
@@ -100,12 +100,12 @@ Zoomorph measures what is actually on screen (the player, the video file and the
 
 | Browser | Store | Status |
 |---|---|---|
-| Microsoft Edge | [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/npkglikcgcbfnelmiimhjcmnmmabjlka) | In review by Microsoft |
+| Microsoft Edge | [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/zoomorph/npkglikcgcbfnelmiimhjcmnmmabjlka) | ✅ Available |
 | Opera | [Opera Add-ons](https://addons.opera.com/extensions/details/zoomorph/) | In review by Opera |
 | Chrome, Brave and others | Chrome Web Store | Coming soon |
 
 > [!NOTE]
-> Store links start working once the review is complete. Until then, or on Chrome, install from the file.
+> The Opera listing goes live once its review is complete. Until then, or on Chrome, install from the file.
 
 ### From the file
 
