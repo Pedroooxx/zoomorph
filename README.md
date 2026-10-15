@@ -9,6 +9,12 @@
   <a href="LICENSE"><img alt="Licença MIT" src="https://img.shields.io/badge/licen%C3%A7a-MIT-a596c7?labelColor=140826&style=for-the-badge"></a>
 </p>
 
+<p align="center">
+  <a href="https://microsoftedge.microsoft.com/addons/detail/npkglikcgcbfnelmiimhjcmnmmabjlka"><img alt="Edge Add-ons" src="https://img.shields.io/badge/Edge%20Add--ons-em%20revis%C3%A3o-8a3ffc?logo=microsoftedge&logoColor=white&labelColor=140826&style=for-the-badge"></a>
+  <a href="https://addons.opera.com/extensions/details/zoomorph/"><img alt="Opera Add-ons" src="https://img.shields.io/badge/Opera%20Add--ons-em%20revis%C3%A3o-8a3ffc?logo=opera&logoColor=white&labelColor=140826&style=for-the-badge"></a>
+  <img alt="Chrome Web Store" src="https://img.shields.io/badge/Chrome%20Web%20Store-em%20breve-a596c7?logo=googlechrome&logoColor=white&labelColor=140826&style=for-the-badge">
+</p>
+
 <h3 align="center">O filme na tela inteira, sem tarja preta.</h3>
 
 <p align="center">
@@ -89,8 +95,18 @@ O Zoomorph mede o que aparece de fato na tela (o player, o arquivo de vídeo e o
 
 ## Instalar
 
+### Pelas lojas (atualiza sozinho)
+
+| Navegador | Loja | Situação |
+|---|---|---|
+| Microsoft Edge | [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/npkglikcgcbfnelmiimhjcmnmmabjlka) | Em revisão pela Microsoft |
+| Opera | [Opera Add-ons](https://addons.opera.com/extensions/details/zoomorph/) | Em revisão pela Opera |
+| Chrome, Brave e outros | Chrome Web Store | Em breve |
+
 > [!NOTE]
-> Em breve na Chrome Web Store, no Opera Add-ons e no Edge Add-ons. Até lá, instale pelo arquivo.
+> Os links das lojas passam a funcionar quando a revisão terminar. Até lá, ou no Chrome, instale pelo arquivo.
+
+### Pelo arquivo
 
 1. Baixe o **`zoomorph-<versão>.zip`** na [página de versões](https://github.com/Pedroooxx/zoomorph/releases/latest) e extraia numa pasta.
 2. Abra a página de extensões do navegador:
@@ -235,6 +251,6 @@ O símbolo é um **Z** montado com as peças do problema: as duas barras amarela
 **Zoomorph** removes black bars from streaming movies. It reads your screen and the video format and applies only the zoom that's needed: fill, half-way, stretch or a fixed manual zoom. It follows you into fullscreen, remembers each title and collects no data.
 
 - **Works on:** Chrome, Opera, Edge and Brave (Manifest V3); Disney+, Prime Video, Netflix, Max, YouTube and any site with a `<video>`.
-- **Install:** download the zip from [Releases](https://github.com/Pedroooxx/zoomorph/releases/latest) and extract it. Open `chrome://extensions` (or `opera://`, `edge://`), enable **Developer mode** and click **Load unpacked**.
+- **Install:** from [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/npkglikcgcbfnelmiimhjcmnmmabjlka) or [Opera Add-ons](https://addons.opera.com/extensions/details/zoomorph/) (in review), Chrome Web Store coming soon. Or download the zip from [Releases](https://github.com/Pedroooxx/zoomorph/releases/latest) and extract it. Open `chrome://extensions` (or `opera://`, `edge://`), enable **Developer mode** and click **Load unpacked**.
 - **Shortcuts:** <kbd>Alt</kbd>+<kbd>Z</kbd> toggles, <kbd>Alt</kbd>+<kbd>X</kbd> cycles the film ratio, <kbd>Alt</kbd>+<kbd>M</kbd> cycles the mode, and <kbd>Alt</kbd>+mouse wheel sets a manual zoom.
 - **Try it:** [interactive demo](https://pedroooxx.github.io/zoomorph/demo/popup.html).

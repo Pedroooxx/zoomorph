@@ -6,6 +6,6 @@ var ZM = {
   AUTO_MODES: ["fill", "half", "stretch"],
   DEFAULT: { mode: "original", car: "auto", zoom: 1, x: 0, y: 0 },
   // Links de avaliação: preencher quando a extensão for publicada.
-  STORE: { chrome: "", opera: "", edge: "" },
+  STORE: { chrome: "", opera: "https://addons.opera.com/extensions/details/zoomorph/", edge: "https://microsoftedge.microsoft.com/addons/detail/npkglikcgcbfnelmiimhjcmnmmabjlka" },
   RATE_AFTER_USES: 5,
 };

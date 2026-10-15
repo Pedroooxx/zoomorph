@@ -1,5 +1,9 @@
 # Changelog
 
+## Próxima versão
+
+- Convite de avaliação no popup aponta para as fichas do Edge Add-ons e do Opera Add-ons.
+
 ## 2.3.3 — 2026-10-15
 
 - Descrição do manifest encurtada para o limite de 132 caracteres exigido pelas lojas (Edge e Chrome).
