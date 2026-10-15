@@ -8,7 +8,7 @@ root = pathlib.Path(__file__).parent
 version = json.loads((root / "manifest.json").read_text(encoding="utf-8"))["version"]
 
 # Pacote: só o que a extensão usa.
-include = ["manifest.json", "background.js", "src", "popup", "icons"]
+include = ["manifest.json", "background.js", "src", "popup", "icons", "LICENSE"]
 out = root / "dist" / f"zoomorph-{version}.zip"
 out.parent.mkdir(exist_ok=True)
 with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
