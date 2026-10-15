@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.6 — 2026-10-15
+
+- **Netflix and Prime Video:** the zoom pushed the picture to the bottom-right corner. Both services position the `<video>` with their own transform (e.g. `translate(-50%, -50%)`), which the extension replaced. The zoom is now applied on top of the site's own transform, on every site. The site's transform is measured once with the zoom off and re-measured only when the video resizes, enters or leaves fullscreen, or the site rewrites its style.
+- Tested on Netflix, Prime Video, Disney+ and YouTube.
+
 ## 2.3.4 — 2026-10-15
 
 - **License changed** from MIT to [PolyForm Noncommercial 1.0.0](LICENSE): free for non-commercial use; the Zoomorph name and logo are reserved. Versions 2.3.3 and earlier remain under MIT.

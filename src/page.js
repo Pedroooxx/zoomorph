@@ -2,7 +2,7 @@
 // Roda antes do site para capturar shadow roots, inclusive fechados.
 (() => {
   // Ao atualizar a extensão, a versão nova substitui a antiga na aba aberta.
-  const VERSION = "2.3.4";
+  const VERSION = "2.3.6";
   const prev = window.__zoomorph;
   if (prev && prev.v === VERSION) return;
   prev?.stop?.();
@@ -226,7 +226,37 @@
     sh.replaceSync(t ? `video[data-zoomorph]{transform:${t} !important;transform-origin:center center !important}` : "");
   }
 
+  // Transform que o próprio site já usa no <video>. A Netflix, por exemplo,
+  // centraliza o vídeo com translate(-50%, -50%); substituir esse transform
+  // pelo zoom jogava a imagem para o canto inferior direito. O zoom é aplicado
+  // depois dele. Lido com a nossa regra desligada por um instante (mesmo frame,
+  // sem repintura); se o site reescreveu o style inline, o valor dele vale.
+  // Medido uma vez com o nosso zoom desligado e guardado: reler a cada ciclo
+  // misturava o zoom anterior na base (o navegador normaliza o texto do
+  // transform, então "é o nosso?" falhava) e o vídeo crescia sem parar.
+  // A medida é refeita quando o vídeo muda de tamanho, na troca de tela
+  // cheia, ao desligar o zoom ou se o site reescrever o style do vídeo.
+  let lastT = "", lastWanted = "";
+  const baseOf = new WeakMap();
+  function siteTransform(v) {
+    const inline = v.style.getPropertyValue("transform");
+    const rewritten = v.dataset.zoomorph && inline !== lastT;
+    if (baseOf.has(v) && !rewritten) return baseOf.get(v);
+    const zoomed = v.dataset.zoomorph;
+    const prio = v.style.getPropertyPriority("transform");
+    const ours = zoomed && inline === lastT;
+    if (zoomed) delete v.dataset.zoomorph;
+    if (ours) v.style.removeProperty("transform");
+    const t = getComputedStyle(v).transform;
+    if (ours) v.style.setProperty("transform", inline, prio);
+    if (zoomed) v.dataset.zoomorph = zoomed;
+    const base = t && t !== "none" ? t + " " : "";
+    baseOf.set(v, base);
+    return base;
+  }
+
   function clear(v) {
+    baseOf.delete(v);
     setRule(v, null);
     v.style.removeProperty("transform");
     v.style.removeProperty("transform-origin");
@@ -246,11 +276,13 @@
     const r = compute(v);
     const active = cfg.enabled && (r.sx !== 1 || r.sy !== 1);
     if (active) {
-      const t = `scale(${r.sx.toFixed(4)}, ${r.sy.toFixed(4)}) translate(${r.x.toFixed(2)}%, ${r.y.toFixed(2)}%)`;
-      if (v.style.getPropertyValue("transform") !== t || v.style.getPropertyPriority("transform") !== "important") {
+      const t = siteTransform(v) + `scale(${r.sx.toFixed(4)}, ${r.sy.toFixed(4)}) translate(${r.x.toFixed(2)}%, ${r.y.toFixed(2)}%)`;
+      if (v.style.getPropertyValue("transform") !== lastT || lastWanted !== t || v.style.getPropertyPriority("transform") !== "important") {
+        lastWanted = t;
         v.style.setProperty("transform", t, "important");
         v.style.setProperty("transform-origin", "center center", "important");
       }
+      lastT = v.style.getPropertyValue("transform"); // texto já normalizado
       v.dataset.zoomorph = "1";
       setRule(v, t);
       applied = { sx: r.sx, sy: r.sy };
@@ -355,11 +387,13 @@
   // Durante a troca, espera o tamanho parar de mudar por 150 ms (o player
   // pode redimensionar em mais de um passo).
   const ro = new ResizeObserver(() => {
+    if (observed) baseOf.delete(observed);
     if (settling) { clearTimeout(settling); settling = setTimeout(settle, 150); } else apply();
   });
   let observed = null;
   function watch(v) { if (v !== observed) { observed && ro.unobserve(observed); v && ro.observe(v); observed = v; } }
   const onFs = () => {
+    if (target) baseOf.delete(target);
     if (target?.dataset.zoomorph) { setRule(target, null); target.style.removeProperty("transform"); }
     clearTimeout(settling);
     settling = setTimeout(settle, 700);

@@ -8,11 +8,13 @@
 | Opera Add-ons | Em moderação desde 15/10/2026 (versão 2.3.3, moderação automática ativada) | ID `heplchjbppmifkjapcfmljkionpkgjje` · link após aprovação: `https://addons.opera.com/extensions/details/zoomorph/` · painel: `https://addons.opera.com/developer/package/307571/` |
 | Chrome Web Store | Não enviado | |
 
-### Ajustes pendentes para a próxima atualização das fichas
+### Ajustes pendentes
 
-- **Edge:** feito na 2.3.4 (descrição em português com inglês embaixo, "Source code", pacote com LICENSE e links de avaliação). Aguardando revisão.
-- **Opera:** quando a 2.3.3 for aprovada, enviar a 2.3.4 em Versions e trocar a descrição pela versão em português com inglês embaixo (texto em `store/CHROME-HANDOFF.md`, seção 2).
-- **Chrome:** em revisão com a 2.3.3; depois de aprovada, enviar a 2.3.4.
+Versão atual do código: **2.3.6** (correção de Netflix e Prime Video; inclui tudo da 2.3.4).
+
+- **Edge:** enviar a 2.3.6 (substitui a 2.3.4 que estava em revisão).
+- **Opera:** quando a 2.3.3 for aprovada, enviar a **2.3.6** em Versions e trocar a descrição pela versão em português com inglês embaixo (texto em `store/CHROME-HANDOFF.md`, seção 2).
+- **Chrome:** quando a 2.3.3 for aprovada, enviar a **2.3.6** em Pacote.
 
 ## 1. Opera Add-ons (grátis)
 
