@@ -4,7 +4,7 @@
 
 | Loja | Status | Identificação |
 |---|---|---|
-| Edge Add-ons | ✅ Publicado (2.3.3 no ar; atualização 2.3.4 em revisão desde 15/10/2026) | Store ID `0RDCKDC295GJ` · CRX ID `npkglikcgcbfnelmiimhjcmnmmabjlka` · link: `https://microsoftedge.microsoft.com/addons/detail/zoomorph/npkglikcgcbfnelmiimhjcmnmmabjlka` |
+| Edge Add-ons | ✅ Publicado (2.3.4 no ar; atualização 2.3.6 em revisão desde 15/10/2026) | Store ID `0RDCKDC295GJ` · CRX ID `npkglikcgcbfnelmiimhjcmnmmabjlka` · link: `https://microsoftedge.microsoft.com/addons/detail/zoomorph/npkglikcgcbfnelmiimhjcmnmmabjlka` |
 | Opera Add-ons | Em moderação desde 15/10/2026 (versão 2.3.3, moderação automática ativada) | ID `heplchjbppmifkjapcfmljkionpkgjje` · link após aprovação: `https://addons.opera.com/extensions/details/zoomorph/` · painel: `https://addons.opera.com/developer/package/307571/` |
 | Chrome Web Store | Não enviado | |
 
@@ -12,7 +12,7 @@
 
 Versão atual do código: **2.3.6** (correção de Netflix e Prime Video; inclui tudo da 2.3.4).
 
-- **Edge:** enviar a 2.3.6 (substitui a 2.3.4 que estava em revisão).
+- **Edge:** 2.3.6 enviada, em revisão (a 2.3.4 já está no ar).
 - **Opera:** quando a 2.3.3 for aprovada, enviar a **2.3.6** em Versions e trocar a descrição pela versão em português com inglês embaixo (texto em `store/CHROME-HANDOFF.md`, seção 2).
 - **Chrome:** quando a 2.3.3 for aprovada, enviar a **2.3.6** em Pacote.
 
