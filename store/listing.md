@@ -55,7 +55,7 @@ Disney+, Prime Video, Netflix, Max, Apple TV+, Paramount+, Globoplay, Crunchyrol
 PRIVACIDADE
 Nenhum dado é coletado ou enviado. Tudo fica no seu navegador.
 
-Código aberto: https://github.com/Pedroooxx/zoomorph
+Código-fonte: https://github.com/Pedroooxx/zoomorph
 
 ## Full description (EN)
 
@@ -91,7 +91,7 @@ Disney+, Prime Video, Netflix, Max, Apple TV+, Paramount+, Globoplay, Crunchyrol
 PRIVACY
 No data is collected or sent. Everything stays in your browser.
 
-Open source: https://github.com/Pedroooxx/zoomorph
+Source code: https://github.com/Pedroooxx/zoomorph
 
 ## Justificativas (Chrome Web Store → Privacidade)
 

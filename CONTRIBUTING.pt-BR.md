@@ -35,6 +35,10 @@ cd zoomorph
 - Ao mudar a lógica do zoom em `src/page.js`, suba a constante `VERSION` e o `version` do `manifest.json` juntos. É isso que faz a versão nova substituir a antiga nas abas abertas.
 - Registre a mudança no [CHANGELOG.md](CHANGELOG.md).
 
+## Licença das contribuições
+
+Ao enviar uma contribuição (pull request, patch ou código numa issue), você concorda que ela é publicada sob a [licença](LICENSE) do projeto e que Pedroooxx também pode usá-la, relicenciá-la e distribuí-la como parte do Zoomorph, inclusive nas lojas de extensões. O crédito continua seu: quem contribui fica registrado no histórico do repositório.
+
 ## Identidade visual
 
 Use as cores e o símbolo descritos no [README](README.pt-BR.md#identidade-visual). As imagens de divulgação ficam em `docs/images` e `store/images`.

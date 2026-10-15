@@ -8,7 +8,7 @@
   <a href="https://github.com/Pedroooxx/zoomorph/releases/latest"><img alt="Version" src="https://img.shields.io/github/v/release/Pedroooxx/zoomorph?label=version&color=8a3ffc&labelColor=140826&style=for-the-badge"></a>
   <a href="https://github.com/Pedroooxx/zoomorph/releases/latest"><img alt="Downloads" src="https://img.shields.io/github/downloads/Pedroooxx/zoomorph/total?label=downloads&color=ffd23f&labelColor=140826&style=for-the-badge"></a>
   <img alt="Manifest V3" src="https://img.shields.io/badge/Manifest-V3-a596c7?labelColor=140826&style=for-the-badge">
-  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-a596c7?labelColor=140826&style=for-the-badge"></a>
+  <a href="LICENSE"><img alt="PolyForm Noncommercial license" src="https://img.shields.io/badge/license-PolyForm%20Noncommercial-a596c7?labelColor=140826&style=for-the-badge"></a>
 </p>
 
 <p align="center">
@@ -244,4 +244,14 @@ The symbol is a **Z** built from the pieces of the problem: the two yellow bars 
 
 ## License
 
-[MIT](LICENSE) © Pedroooxx
+Zoomorph is **source-available for non-commercial use** under the [PolyForm Noncommercial License 1.0.0](LICENSE).
+
+| ✅ You can | ❌ You can't |
+|---|---|
+| Use it, read the code, learn from it | Sell it, charge for it or use it in a paid product |
+| Fork it, modify it and send improvements | Publish a copy or fork named or branded as Zoomorph |
+| Share it for free, keeping the license | Remove the license or copyright notice |
+
+**Name and logo:** "Zoomorph" and its logo are not covered by the license and may not be used for other products, forks or store listings without permission.
+
+Versions 2.3.3 and earlier were released under the MIT License. © Pedroooxx

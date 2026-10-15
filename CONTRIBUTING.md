@@ -36,6 +36,10 @@ cd zoomorph
 - The manifest `description` must stay within 132 characters (store limit).
 - Record the change in [CHANGELOG.md](CHANGELOG.md).
 
+## License of contributions
+
+By sending a contribution (pull request, patch or code in an issue), you agree that it is released under the project's [license](LICENSE) and that Pedroooxx may also use, relicense and distribute it as part of Zoomorph, including in the browser extension stores. You keep the credit: contributors are listed in the repository history.
+
 ## Visual identity
 
 Use the colors and symbol described in the [README](README.md#visual-identity). Promotional images live in `docs/images` and `store/images`.

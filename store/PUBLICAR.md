@@ -8,6 +8,14 @@
 | Opera Add-ons | Em moderação desde 15/10/2026 (versão 2.3.3, moderação automática ativada) | ID `heplchjbppmifkjapcfmljkionpkgjje` · link após aprovação: `https://addons.opera.com/extensions/details/zoomorph/` · painel: `https://addons.opera.com/developer/package/307571/` |
 | Chrome Web Store | Não enviado | |
 
+### Ajustes pendentes para a próxima atualização das fichas
+
+Fazer junto com o envio da próxima versão, para não reiniciar a revisão em andamento:
+
+- **Edge e Opera:** na descrição, trocar a última linha `Open source: https://github.com/Pedroooxx/zoomorph` por `Source code: https://github.com/Pedroooxx/zoomorph` (a licença mudou para PolyForm Noncommercial, que não é "open source").
+- **Edge:** atualizar o pacote para a versão com os links de avaliação das lojas (CHANGELOG, "Unreleased").
+- **Opera:** o campo **License URL** já aponta para o `LICENSE` do repositório e passa a mostrar a nova licença sozinho.
+
 Faça tudo no seu navegador (Opera, Chrome ou Edge), fora do app. Abra este arquivo ao lado e copie os valores.
 
 **Arquivos** (pasta `D:\PEDRO\Extensions\stream-zoom`)
@@ -47,7 +55,7 @@ Os textos (descrição curta e completa, em português e inglês) estão em [lis
    - **Description:** a descrição completa (EN). Se houver aba de idioma, adicione **Português (Brasil)** com o texto PT.
    - **Homepage:** o site · **Support page:** o link de suporte · **Privacy policy:** a URL da política
    - **Screenshots:** as duas capturas 1280×800
-   - **License:** MIT, se o formulário pedir
+   - **License URL:** `https://github.com/Pedroooxx/zoomorph/blob/main/LICENSE` (PolyForm Noncommercial 1.0.0)
 5. **Notes for moderators**, se houver, cole:
    > The extension adjusts the CSS transform of the main `<video>` element on streaming sites to remove letterboxing. No data is collected or transmitted; settings are stored in chrome.storage.local. Source code (not minified): https://github.com/Pedroooxx/zoomorph
 6. Envie para revisão. A revisão do Opera é manual e pode levar de alguns dias a algumas semanas.
