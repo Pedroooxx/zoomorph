@@ -1,18 +1,20 @@
 ---
-name: Site não funciona
-about: O Zoomorph não encontra o vídeo ou erra o zoom num site
-labels: compatibilidade
+name: Site doesn't work / Site não funciona
+about: Zoomorph can't find the video or gets the zoom wrong on a site
+labels: compatibility
 ---
 
-**Site e endereço da página** (ex.: primevideo.com/detail/...):
+**Site and page URL** (e.g. primevideo.com/detail/...):
 
-**Navegador e versão** (Chrome, Opera, Edge...):
+**Browser and version** (Chrome, Opera, Edge...):
 
-**O que aconteceu** (não achou o vídeo / zoom errado / outro):
+**What happened** (video not found / wrong zoom / other):
 
-**Resultado do diagnóstico**
-Com o vídeo tocando (pode ser em tela cheia), aperte **Alt+D** e cole aqui o que foi copiado:
+**Diagnostic**
+With the video playing (fullscreen is fine), press **Alt+D** and paste what was copied here:
 
 ```
-cole aqui
+paste here
 ```
+
+<!-- Pode escrever em português. -->

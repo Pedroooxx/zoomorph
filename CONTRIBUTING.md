@@ -1,38 +1,41 @@
-# Contribuir com o Zoomorph
+<p align="right"><b>English</b> · <a href="CONTRIBUTING.pt-BR.md">Português</a></p>
 
-Obrigado pelo interesse! Há três jeitos fáceis de ajudar.
+# Contributing to Zoomorph
 
-## 1. Testar um streaming
+Thanks for your interest! There are three easy ways to help.
 
-A lista de compatibilidade no [README](README.md#compatibilidade) depende de testes reais. Abra um filme, use o modo **Preencher** e entre e saia da tela cheia. Depois [abra uma issue "Site não funciona"](https://github.com/Pedroooxx/zoomorph/issues/new/choose), mesmo que tenha funcionado: o modelo pede o resultado de `__zoomorphDebug()`, que mostra o vídeo escolhido e a conta do zoom.
+## 1. Test a streaming service
 
-## 2. Adicionar um streaming
+The compatibility list in the [README](README.md#compatibility) depends on real tests. Open a movie, use **Preencher** (Fill) mode, and enter and leave fullscreen. Then [open an issue](https://github.com/Pedroooxx/zoomorph/issues/new/choose), even if it worked, and paste the diagnostic copied with <kbd>Alt</kbd>+<kbd>D</kbd>: it shows the chosen video and the zoom calculation.
 
-Cada streaming identifica o título na URL de um jeito. Para o Zoomorph lembrar o ajuste por filme, inclua uma linha em [`src/adapters.js`](src/adapters.js):
+## 2. Add a streaming service
+
+Each service identifies a title in the URL in its own way. For Zoomorph to remember settings per movie, add a line to [`src/adapters.js`](src/adapters.js):
 
 ```js
-{ host: /exemplo\.com$/, title: u => u.pathname.match(/\/assistir\/(\w+)/)?.[1] },
+{ host: /example\.com$/, title: u => u.pathname.match(/\/watch\/(\w+)/)?.[1] },
 ```
 
-O resto (achar o vídeo, medir, aplicar o zoom) já funciona em qualquer site.
+Everything else (finding the video, measuring, applying the zoom) already works on any site.
 
-## 3. Código
+## 3. Code
 
 ```bash
 git clone https://github.com/Pedroooxx/zoomorph.git
 cd zoomorph
 ```
 
-1. Carregue a pasta como extensão sem compactação (`chrome://extensions` → Modo do desenvolvedor → Carregar sem compactação).
-2. Depois de editar, clique em recarregar (⟳) no card. As abas abertas recebem a versão nova sozinhas.
-3. `python build.py` gera o pacote em `dist/` e atualiza a demonstração em `demo/popup.html`.
+1. Load the folder as an unpacked extension (`chrome://extensions` → Developer mode → Load unpacked).
+2. After editing, click reload (⟳) on the extension card. Open tabs pick up the new version automatically.
+3. `python build.py` builds the package in `dist/` and refreshes the demo in `demo/popup.html`.
 
-**Padrões do projeto**
-- JavaScript puro, sem dependências nem etapa de build.
-- Comentários e textos da interface em português.
-- Ao mudar a lógica do zoom em `src/page.js`, suba a constante `VERSION` e o `version` do `manifest.json` juntos. É isso que faz a versão nova substituir a antiga nas abas abertas.
-- Registre a mudança no [CHANGELOG.md](CHANGELOG.md).
+**Project conventions**
+- Plain JavaScript, no dependencies and no build step.
+- Documentation and commit messages in English; code comments and UI text are in Portuguese.
+- When changing the zoom logic in `src/page.js`, bump the `VERSION` constant and the `manifest.json` `version` together. That is what makes the new version replace the old one in open tabs.
+- The manifest `description` must stay within 132 characters (store limit).
+- Record the change in [CHANGELOG.md](CHANGELOG.md).
 
-## Identidade visual
+## Visual identity
 
-Use as cores e o símbolo descritos no [README](README.md#identidade-visual). As imagens de divulgação ficam em `docs/images` e `store/images`.
+Use the colors and symbol described in the [README](README.md#visual-identity). Promotional images live in `docs/images` and `store/images`.
