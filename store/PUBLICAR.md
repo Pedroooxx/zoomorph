@@ -14,6 +14,7 @@ Fazer junto com o envio da próxima versão, para não reiniciar a revisão em a
 
 - **Edge e Opera:** na descrição, trocar a última linha `Open source: https://github.com/Pedroooxx/zoomorph` por `Source code: https://github.com/Pedroooxx/zoomorph` (a licença mudou para PolyForm Noncommercial, que não é "open source").
 - **Edge:** atualizar o pacote para a versão com os links de avaliação das lojas (CHANGELOG, "Unreleased").
+- **Edge e Opera:** deixar a descrição como no Chrome, em português em cima e em inglês embaixo (o app e as imagens estão em português). O texto está em `store/CHROME-HANDOFF.md`, seção 2.
 - **Opera:** o campo **License URL** já aponta para o `LICENSE` do repositório e passa a mostrar a nova licença sozinho.
 
 Faça tudo no seu navegador (Opera, Chrome ou Edge), fora do app. Abra este arquivo ao lado e copie os valores.
