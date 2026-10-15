@@ -110,7 +110,7 @@ Para atualizar, troque os arquivos da pasta e clique em recarregar (⟳) no card
 
 1. Dê play no filme e clique no ícone do Zoomorph.
 2. Em **automático**, escolha **Preencher**. O ajuste fica salvo para esse título.
-3. Ainda sobrou tarja? Ela está gravada no arquivo. Arraste **formato** até ela sumir, ou use **detectar tarja** em sites sem proteção.
+3. Ainda sobrou tarja? Ela está gravada no arquivo. No YouTube e em outros sites sem proteção ela é detectada sozinha em alguns segundos; nos com DRM, arraste **formato** até ela sumir.
 4. Quer o mesmo modo em todos os títulos do site? Clique em **Usar como padrão do site**.
 5. Prefere um zoom fixo? Arraste a barra **manual**. Para voltar ao automático, clique num dos modos.
 
@@ -127,6 +127,7 @@ Experimente sem instalar: [demonstração interativa](https://pedroooxx.github.i
 | <kbd>Alt</kbd> + <kbd>M</kbd> | Troca o modo automático |
 | <kbd>Alt</kbd> + <kbd>↑</kbd> <kbd>↓</kbd> ou <kbd>Alt</kbd> + roda do mouse | Zoom manual de 2 em 2% |
 | <kbd>Alt</kbd> + <kbd>Shift</kbd> + setas | Move a imagem, sem nunca mostrar a borda |
+| <kbd>Alt</kbd> + <kbd>D</kbd> | Copia um diagnóstico para relatar problemas (funciona em tela cheia) |
 
 Os três primeiros podem ser trocados na página de atalhos do navegador (link **atalhos** no rodapé do popup).
 
@@ -140,7 +141,7 @@ Os três primeiros podem ser trocados na página de atalhos do navegador (link *
 | YouTube | ✅ testado, com detecção automática de tarja |
 | Vimeo · Twitch · qualquer site com `<video>` | 🟡 modo genérico |
 
-Testou em algum? [Conte como foi](https://github.com/Pedroooxx/zoomorph/issues/new/choose): o modelo de issue já pede o diagnóstico necessário.
+Testou em algum? [Conte como foi](https://github.com/Pedroooxx/zoomorph/issues/new/choose). Para anexar o diagnóstico, aperte <kbd>Alt</kbd>+<kbd>D</kbd> com o vídeo tocando e cole na issue.
 
 ## Como funciona
 

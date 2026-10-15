@@ -1,10 +1,17 @@
 # Changelog
 
-## 2.3.0 — 2026-10-14
+## 2.3.2 — 2026-10-15
 
-- **YouTube, Vimeo e outros sites sem DRM:** no formato "auto", a tarja gravada no arquivo agora é detectada sozinha, lendo um quadro pequeno a cada 2 s. Trailers e filmes em arquivo 16:9 passam a preencher o player sem ajuste manual.
-- **Área de referência pelo player:** o YouTube dimensiona o `<video>` do tamanho exato da imagem e deixa as faixas no fundo do player. A conta passou a usar o contêiner do player, e não só a caixa do vídeo, e por isso os modos automáticos não ficavam mais presos em 100%.
-- **Modo "monitor" em janela:** preenche o player, mas nunca passa do zoom que a tela cheia pediria. Evita cortar imagem à toa num player mais largo que o monitor.
+YouTube funcionando de verdade.
+
+- **Área de referência pelo player:** o YouTube dimensiona o `<video>` do tamanho exato da imagem e deixa as faixas no fundo do player. A conta passou a usar o contêiner do player, e não só a caixa do vídeo, que travava os modos automáticos em 100%.
+- **Tarja detectada sozinha** no formato "auto" em sites sem DRM (YouTube, Vimeo…): uma miniatura de 160 px por segundo, valendo o formato da maioria das amostras do último minuto. Cartelas, logos e cenas escuras não desligam mais o zoom.
+- **Troca de vídeo no YouTube:** o site reaproveita o mesmo `<video>`; a detecção agora reconhece a troca e não herda a tarja do vídeo anterior.
+- **Tela cheia sem salto:** o zoom espera o player terminar de redimensionar o vídeo antes de ser aplicado, em vez de aparecer exagerado por um instante.
+- **Zoom aplicado também por folha de estilo própria** (técnica do Ultrawidify), que continua valendo quando o player reescreve o estilo do vídeo.
+- **Modo "monitor" em janela:** preenche o player, mas nunca passa do zoom que a tela cheia pediria.
+- **Alt+D** copia um diagnóstico, inclusive em tela cheia, para relatar problemas.
+- O aviso na tela não usa mais `innerHTML` (compatível com sites que exigem Trusted Types, como o YouTube).
 - Diferenças de zoom abaixo de 0,5% são ignoradas.
 
 ## 2.2.1 — 2026-10-14

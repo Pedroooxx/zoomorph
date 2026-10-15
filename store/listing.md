@@ -36,6 +36,7 @@ MODOS
 FEITO PARA QUALQUER TELA
 • Monitor, janela do player, 16:10, 16:9, 21:9 e 32:9
 • Ideal para monitores ultrawide
+• No YouTube e em sites sem DRM, detecta sozinho a tarja gravada no vídeo
 
 LEMBRA DE TUDO
 • Cada filme ou série guarda o próprio ajuste
@@ -71,6 +72,7 @@ MODES
 ANY SCREEN
 • Monitor, player window, 16:10, 16:9, 21:9 and 32:9
 • Great for ultrawide monitors
+• On YouTube and other DRM-free sites, detects letterboxing baked into the video automatically
 
 REMEMBERS EVERYTHING
 • Each movie or show keeps its own setting

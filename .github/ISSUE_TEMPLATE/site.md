@@ -11,7 +11,7 @@ labels: compatibilidade
 **O que aconteceu** (não achou o vídeo / zoom errado / outro):
 
 **Resultado do diagnóstico**
-Com o vídeo tocando, abra o Console (Ctrl+Shift+J), rode `__zoomorphDebug()` e cole o resultado:
+Com o vídeo tocando (pode ser em tela cheia), aperte **Alt+D** e cole aqui o que foi copiado:
 
 ```
 cole aqui
